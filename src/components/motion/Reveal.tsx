@@ -86,7 +86,7 @@ export function LineReveal({
   return (
     <Tag ref={ref} className={className}>
       {lines.map((line, i) => (
-        <span key={i} className="-mb-[0.12em] -mt-[0.16em] block overflow-hidden pb-[0.12em] pt-[0.16em]">
+        <span key={i} className="-mb-[0.2em] -mt-[0.24em] block overflow-hidden pb-[0.2em] pt-[0.24em]">
           <span data-line className={`block origin-top-left ${lineClassName ?? ""}`}>
             {line}
           </span>

@@ -8,8 +8,9 @@ import { href, switchLocalePath, type Locale, type RouteKey } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 import { cn, phoneDisplay } from "@/lib/utils";
 import { ArrowUpRight } from "./Icons";
+import Logo from "./Logo";
 
-const navKeys: RouteKey[] = ["services", "work", "about", "news", "contact"];
+const navKeys: RouteKey[] = ["services", "gallery", "about", "news", "contact"];
 
 export default function Header({ locale, dict, phone, email }: { locale: Locale; dict: Dictionary; phone: string; email: string }) {
   const pathname = usePathname();
@@ -91,9 +92,7 @@ export default function Header({ locale, dict, phone, email }: { locale: Locale;
       >
         <div className="container-x flex h-[72px] items-center justify-between gap-6 md:h-[84px]">
           <Link href={href(locale, "home")} className="relative z-10 flex items-center gap-3" aria-label="Phú Quốc Media">
-            <span className="display text-[1.65rem] leading-none tracking-tight md:text-[1.9rem]">
-              PQ<span className="text-accent">.</span>Media
-            </span>
+            <Logo priority className="h-12 md:h-[60px]" />
           </Link>
 
           <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
@@ -146,7 +145,7 @@ export default function Header({ locale, dict, phone, email }: { locale: Locale;
                 data-menu-item
                 href={href(locale, key)}
                 tabIndex={open ? 0 : -1}
-                className={cn("display flex items-baseline gap-4 py-1 text-[clamp(2.75rem,12vw,5rem)]", isActive(key) && key !== "home" && "text-accent")}
+                className={cn("display flex items-baseline gap-4 py-1 text-[clamp(2.25rem,9vw,4rem)]", isActive(key) && key !== "home" && "text-accent")}
               >
                 <span className="font-sans text-xs font-medium tracking-[0.2em] text-muted">0{i + 1}</span>
                 {dict.nav[key as keyof Dictionary["nav"]]}

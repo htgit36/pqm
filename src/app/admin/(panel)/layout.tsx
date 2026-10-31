@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { requireAdmin } from "@/lib/auth";
 import { logout } from "../actions";
 import AdminNav from "./AdminNav";
+import Logo from "@/components/site/Logo";
 
 export const metadata: Metadata = { title: { default: "Quản trị", template: "%s · Quản trị PQM" }, robots: { index: false } };
 export const dynamic = "force-dynamic";
@@ -13,8 +14,8 @@ export default async function PanelLayout({ children }: { children: React.ReactN
     <div className="min-h-screen bg-ink text-[15px] lg:flex">
       <aside className="border-b border-line bg-surface lg:fixed lg:inset-y-0 lg:left-0 lg:w-60 lg:border-b-0 lg:border-r">
         <div className="flex items-center justify-between px-5 py-5 lg:block">
-          <Link href="/admin" className="display text-2xl">
-            PQ<span className="text-accent">.</span>Admin
+          <Link href="/admin" aria-label="Quản trị Phú Quốc Media">
+            <Logo className="h-12" />
           </Link>
           <p className="hidden text-xs text-muted lg:mt-1 lg:block">Xin chào, {session.username}</p>
         </div>

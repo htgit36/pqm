@@ -5,6 +5,7 @@ import type { Settings } from "@/lib/settings";
 import { phoneDisplay } from "@/lib/utils";
 import { Facebook, Instagram, Tiktok, Youtube } from "./Icons";
 import BackToTop from "./BackToTop";
+import Logo from "./Logo";
 
 export default function Footer({ locale, dict, settings }: { locale: Locale; dict: Dictionary; settings: Settings }) {
   const year = new Date().getFullYear();
@@ -14,15 +15,16 @@ export default function Footer({ locale, dict, settings }: { locale: Locale; dic
     { url: settings.instagram, label: "Instagram", Icon: Instagram },
     { url: settings.tiktok, label: "TikTok", Icon: Tiktok },
   ].filter((s) => s.url);
-  const links: RouteKey[] = ["services", "work", "about", "news", "contact"];
+  const links: RouteKey[] = ["services", "gallery", "about", "news", "contact"];
 
   return (
-    <footer className="relative overflow-hidden border-t border-line bg-ink pt-20 md:pt-28">
+    <footer className="relative overflow-hidden border-t border-line bg-ink/40 pt-20 md:pt-28">
       <div className="container-x">
         <div className="grid gap-14 md:grid-cols-12">
           <div className="md:col-span-5">
+            <Logo className="mb-10 h-20 md:h-24" />
             <p className="eyebrow mb-6">{dict.home.ctaEyebrow}</p>
-            <a href={`tel:${settings.phone}`} className="display block text-[clamp(2.5rem,6vw,5.5rem)] transition-colors hover:text-accent">
+            <a href={`tel:${settings.phone}`} className="display block text-[clamp(2rem,4.5vw,4rem)] transition-colors hover:text-accent">
               {phoneDisplay(settings.phone)}
             </a>
             <a href={`mailto:${settings.email}`} className="link-u mt-4 inline-block text-lg text-fg/80 hover:text-fg">
@@ -82,7 +84,6 @@ export default function Footer({ locale, dict, settings }: { locale: Locale; dic
             © 2017–{year} {dict.footer.company}. {dict.footer.rights}
           </p>
           <p className="flex items-center gap-6">
-            <span>{dict.footer.vat}</span>
             <BackToTop label={dict.footer.backToTop} />
           </p>
         </div>

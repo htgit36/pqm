@@ -6,11 +6,12 @@ import { Flash, PageTitle } from "../ui";
 export const metadata = { title: "Cài đặt" };
 
 const groups: { title: string; keys: SettingKey[] }[] = [
-  { title: "Liên hệ", keys: ["phone", "email", "zalo", "messenger", "addressVi", "addressEn"] },
+  { title: "Liên hệ", keys: ["phone", "email", "zalo", "messenger", "addressVi", "addressEn", "mapLink", "mapCoords"] },
   { title: "Mạng xã hội", keys: ["facebook", "youtube", "instagram", "tiktok"] },
   { title: "Trang chủ", keys: ["heroImage", "heroVideo", "showreelUrl", "showreelImage"] },
+  { title: "Hình minh họa", keys: ["whyImage", "founderImage", "aboutImage", "equipmentImage"] },
 ];
-const images: SettingKey[] = ["heroImage", "showreelImage"];
+const images: SettingKey[] = ["heroImage", "showreelImage", "whyImage", "founderImage", "aboutImage", "equipmentImage"];
 
 export default async function SettingsPage({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
   const settings = await getSettings();

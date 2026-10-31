@@ -40,7 +40,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
             </Link>
             <Reveal className={`md:col-span-5 ${i % 2 ? "md:order-1 md:col-start-1" : ""}`}>
               <p className="text-sm tabular-nums text-accent">{String(i + 1).padStart(2, "0")}</p>
-              <h2 className="display mt-4 text-[clamp(2.5rem,4.8vw,4.5rem)]">{tr(s, "title", locale)}</h2>
+              <h2 className="display mt-4 text-[clamp(1.9rem,3.4vw,3.25rem)]">{tr(s, "title", locale)}</h2>
               <p className="mt-6 text-lg leading-relaxed text-fg/70">{tr(s, "summary", locale)}</p>
               <Link href={href(locale, "services", s.slug)} className="btn btn-ghost mt-8">
                 {dict.common.readMore} <ArrowUpRight className="h-4 w-4" />

@@ -3,6 +3,16 @@ import { db, pool, schema } from "./index";
 import { migrations } from "./migrations.generated";
 import { seedClients, seedPosts, seedProjects, seedServices } from "./seed-data";
 
+const dataPatches = [
+  {
+    tag: "data_2026_11_invoice_wording",
+    statements: [
+      "UPDATE `services` SET `body_vi` = REPLACE(`body_vi`, 'xuất hóa đơn VAT 8% cho mọi giao dịch', 'có hóa đơn tài chính hợp lệ'), `body_en` = REPLACE(`body_en`, 'VAT invoices for every engagement', 'valid financial invoices')",
+      "UPDATE `posts` SET `body_vi` = REPLACE(`body_vi`, 'xuất hóa đơn VAT giúp', 'hóa đơn tài chính hợp lệ giúp'), `body_en` = REPLACE(`body_en`, 'VAT invoices keeps', 'valid financial invoices keeps')",
+    ],
+  },
+];
+
 // Chạy khi server khởi động (src/instrumentation.ts): tạo/cập nhật bảng từ các
 // migration đã nhúng sẵn, rồi nạp dữ liệu mẫu nếu cơ sở dữ liệu còn trống.
 export async function runMigrations() {
@@ -25,6 +35,14 @@ export async function runMigrations() {
     }
     await pool.query("INSERT INTO `__app_migrations` (`tag`) VALUES (?)", [m.tag]);
     console.log(`[db] Đã áp dụng migration ${m.tag}`);
+  }
+
+  // Bản vá nội dung (chạy một lần) cho dữ liệu đã nạp trước đó.
+  for (const patch of dataPatches) {
+    if (applied.has(patch.tag)) continue;
+    for (const statement of patch.statements) await pool.query(statement);
+    await pool.query("INSERT INTO `__app_migrations` (`tag`) VALUES (?)", [patch.tag]);
+    console.log(`[db] Đã áp dụng bản vá ${patch.tag}`);
   }
 
   const [{ count }] = await db.select({ count: sql<number>`count(*)` }).from(schema.services);

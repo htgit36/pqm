@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #070707;
-  --color-surface: #101010;
-  --color-raise: #171717;
+  --color-ink: #10171c;
+  --color-surface: #172128;
+  --color-raise: #1f2b33;
   --color-fg: #f3f1ec;
-  --color-muted: #9b9a95;
-  --color-dim: #64635f;
+  --color-muted: #a3aaad;
+  --color-dim: #6c777d;
   --color-line: rgb(243 241 236 / 0.12);
   --color-accent: #3ee0c5;
   --color-accent-deep: #0f8f80;
@@ -53,7 +53,14 @@
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.6;
-    background: var(--color-ink);
+    /* Nền xanh than có quầng sáng màu biển, cố định khi cuộn */
+    background-color: var(--color-ink);
+    background-image:
+      radial-gradient(1100px 700px at 88% -5%, rgb(62 224 197 / 0.13), transparent 60%),
+      radial-gradient(900px 700px at -10% 35%, rgb(56 120 160 / 0.2), transparent 62%),
+      radial-gradient(800px 600px at 60% 105%, rgb(62 224 197 / 0.08), transparent 60%),
+      linear-gradient(180deg, #131c22 0%, #10171c 45%, #121a20 100%);
+    background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -82,8 +89,8 @@
     font-stretch: 72%;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: -0.015em;
-    line-height: 0.92;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
   }
   .eyebrow {
     font-family: var(--font-sans);

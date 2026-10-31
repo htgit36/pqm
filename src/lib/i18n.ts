@@ -11,7 +11,7 @@ export function isLocale(value: string): value is Locale {
 export const routes = {
   home: { vi: "", en: "" },
   services: { vi: "dich-vu", en: "services" },
-  work: { vi: "du-an", en: "work" },
+  gallery: { vi: "thu-vien", en: "gallery" },
   news: { vi: "tin-tuc", en: "news" },
   about: { vi: "gioi-thieu", en: "about" },
   contact: { vi: "lien-he", en: "contact" },

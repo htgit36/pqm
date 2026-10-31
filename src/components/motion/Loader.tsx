@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import Logo from "@/components/site/Logo";
 
 // Màn hình mở đầu: đếm 0→100 kiểu timecode rồi kéo rèm lên. Chỉ chạy lần đầu trong phiên.
 export default function Loader() {
@@ -64,14 +65,14 @@ export default function Loader() {
           <span data-loader-word className="block">10°13′N 103°57′E</span>
         </span>
       </div>
-      <div className="overflow-hidden pt-[0.16em]">
-        <div data-loader-word className="display text-[clamp(3.5rem,13vw,13rem)]">
-          Phú Quốc<span className="text-accent">.</span>
+      <div className="flex justify-center overflow-hidden">
+        <div data-loader-word>
+          <Logo priority className="h-[clamp(7rem,22vh,13rem)]" />
         </div>
       </div>
       <div className="flex items-end justify-between">
         <span className="overflow-hidden">
-          <span data-loader-word className="eyebrow block">Media Production Studio</span>
+          <span data-loader-word className="eyebrow block">Phú Quốc Media</span>
         </span>
         <span className="overflow-hidden">
           <span data-loader-word className="display block text-[clamp(2.5rem,6vw,5rem)] tabular-nums">

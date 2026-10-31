@@ -46,7 +46,7 @@ export default function ServicesList({ items, viewLabel }: { items: Item[]; view
             >
               <span className="col-span-2 text-sm tabular-nums text-muted md:col-span-1">0{i + 1}</span>
               <span className="col-span-10 md:col-span-6">
-                <span className="display block text-[clamp(2rem,5.2vw,5rem)] transition-[color,transform] duration-700 ease-[var(--ease-expo)] group-hover:translate-x-3 group-hover:text-accent">
+                <span className="display block text-[clamp(1.6rem,3.6vw,3.5rem)] transition-[color,transform] duration-700 ease-[var(--ease-expo)] group-hover:translate-x-3 group-hover:text-accent">
                   {item.title}
                 </span>
               </span>

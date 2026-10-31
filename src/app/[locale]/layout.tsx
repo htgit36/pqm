@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       template: "%s — Phu Quoc Media",
     },
     description:
-      "Phu Quoc Media: Phu Quoc's leading event photography & film, corporate video, drone/FPV and instant printing crew since 2017.",
+      "Phu Quoc Media: professional event photography & film, corporate video, drone/FPV and instant printing crew since 2017.",
   };
 }
 
@@ -40,6 +40,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
     legalName: "Công ty TNHH MTV Truyền thông Phú Quốc Media",
     url: siteUrl,
     image: `${siteUrl}/images/dji-0099.webp`,
+    logo: `${siteUrl}/images/logo-dark.png`,
     telephone: settings.phone,
     email: settings.email,
     foundingDate: "2017",

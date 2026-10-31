@@ -10,10 +10,15 @@ const legacyRedirects = [
   ["/chup-anh-kien-truc-nha-mau", "/dich-vu/chup-anh-kien-truc-bat-dong-san"],
   ["/chup-anh-couple", "/dich-vu/chup-anh-couple-gia-dinh"],
   ["/dich-vu-chup-anh-gia-dinh", "/dich-vu/chup-anh-couple-gia-dinh"],
-  ["/album", "/du-an"],
-  ["/album/:path*", "/du-an"],
+  ["/album", "/thu-vien"],
+  ["/album/:path*", "/thu-vien"],
   ["/ve-chung-toi", "/gioi-thieu"],
   ["/index.php", "/"],
+  // Phần Dự án đã gỡ → chuyển sang Thư viện ảnh
+  ["/du-an", "/thu-vien"],
+  ["/du-an/:path*", "/thu-vien"],
+  ["/en/work", "/en/gallery"],
+  ["/en/work/:path*", "/en/gallery"],
 ];
 
 /** @type {import("next").NextConfig} */

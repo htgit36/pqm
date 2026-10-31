@@ -1,9 +1,9 @@
 import "server-only";
 import { cache } from "react";
-import { and, asc, desc, eq, lte, ne } from "drizzle-orm";
+import { and, asc, desc, eq, lte } from "drizzle-orm";
 import { db, schema } from "./db";
 
-const { services, projects, posts, clients } = schema;
+const { services, posts, clients } = schema;
 
 export const getServices = cache(() =>
   db.select().from(services).where(eq(services.published, true)).orderBy(asc(services.sortOrder), asc(services.id)),
@@ -17,37 +17,6 @@ export const getService = cache(async (slug: string) => {
     .limit(1);
   return row ?? null;
 });
-
-export const getProjects = cache(() =>
-  db.select().from(projects).where(eq(projects.published, true)).orderBy(asc(projects.sortOrder), desc(projects.id)),
-);
-
-export const getFeaturedProjects = cache(() =>
-  db
-    .select()
-    .from(projects)
-    .where(and(eq(projects.published, true), eq(projects.featured, true)))
-    .orderBy(asc(projects.sortOrder))
-    .limit(8),
-);
-
-export const getProject = cache(async (slug: string) => {
-  const [row] = await db
-    .select()
-    .from(projects)
-    .where(and(eq(projects.slug, slug), eq(projects.published, true)))
-    .limit(1);
-  return row ?? null;
-});
-
-export async function getRelatedProjects(category: string, excludeId: number, limit = 3) {
-  return db
-    .select()
-    .from(projects)
-    .where(and(eq(projects.published, true), eq(projects.category, category), ne(projects.id, excludeId)))
-    .orderBy(asc(projects.sortOrder))
-    .limit(limit);
-}
 
 export const getPosts = cache(() =>
   db

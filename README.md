@@ -65,6 +65,17 @@ File `.env.local` (mật khẩu, khóa bí mật) và thư mục `storage/` đã
 - Ảnh tải lên được nén sang WebP tự động. Video dài nên đăng YouTube và dán link vào dự án.
 - *Cài đặt* cho phép đổi hotline, Zalo, mạng xã hội, ảnh/video nền trang chủ và link showreel YouTube.
 
+## Thư viện ảnh từ fanpage Facebook
+
+Trang `/thu-vien` (và khu vực "Mới nhất từ fanpage" ở trang chủ) tự lấy các bài đăng có ảnh từ fanpage, mỗi bài là một album, làm mới mỗi giờ. Cần 2 biến môi trường:
+
+1. Vào https://developers.facebook.com → *My Apps → Create App* (loại **Business**), đăng nhập bằng tài khoản quản trị fanpage.
+2. Mở *Tools → Graph API Explorer*: chọn app vừa tạo → *Get Token → Get Page Access Token*, cấp quyền `pages_show_list`, `pages_read_engagement`, chọn fanpage Phú Quốc Media.
+3. Đổi sang token dài hạn: mở *Access Token Debugger*, dán token → **Extend Access Token**. Dùng token dài hạn đó gọi `me/accounts` trong Graph API Explorer → copy `access_token` (token của trang, không hết hạn) và `id` (Page ID).
+4. Trên Hostinger → *Biến môi trường*: thêm `FACEBOOK_PAGE_ID` và `FACEBOOK_PAGE_TOKEN` → **Lưu và triển khai lại**.
+
+Khi chưa cấu hình, trang Thư viện hiển thị nút dẫn sang fanpage.
+
 ## Thông báo yêu cầu báo giá
 
 - **Email**: điền `SMTP_*`. Với Gmail, tạo *App password* tại myaccount.google.com → Security.

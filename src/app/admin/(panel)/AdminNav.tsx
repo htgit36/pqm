@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 const items = [
   { href: "/admin", label: "Tổng quan" },
   { href: "/admin/leads", label: "Yêu cầu báo giá" },
-  { href: "/admin/projects", label: "Dự án" },
   { href: "/admin/services", label: "Dịch vụ" },
   { href: "/admin/posts", label: "Tin tức" },
   { href: "/admin/clients", label: "Đối tác" },

@@ -70,7 +70,7 @@ export default function Hero({ dict, image, video }: { dict: Dictionary; image: 
   }, []);
 
   return (
-    <section ref={root} className="grain relative flex h-[100svh] min-h-[620px] flex-col overflow-hidden bg-ink" aria-label="Hero">
+    <section ref={root} className="grain relative flex h-[100svh] min-h-[620px] flex-col overflow-hidden" aria-label="Hero">
       <div data-hero-media className="absolute inset-0">
         <div className="absolute inset-0 animate-kenburns">
           {video ? (
@@ -79,7 +79,7 @@ export default function Hero({ dict, image, video }: { dict: Dictionary; image: 
             <Img src={image} alt="Phú Quốc từ trên cao" priority sizes="100vw" />
           )}
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/25 to-ink" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/20 to-ink" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(7,7,7,0.6)_100%)]" />
       </div>
 
@@ -101,16 +101,16 @@ export default function Hero({ dict, image, video }: { dict: Dictionary; image: 
           <span className="h-px w-10 bg-accent" />
           {dict.home.heroTop}
         </p>
-        <h1 className="display text-[clamp(3.2rem,11.5vw,12.5rem)]">
+        <h1 className="display text-[clamp(2.4rem,7vw,7.25rem)]">
           {[dict.home.heroLine1, dict.home.heroLine2].map((line) => (
-            <span key={line} className="-mb-[0.12em] -mt-[0.16em] block overflow-hidden pb-[0.12em] pt-[0.16em]">
+            <span key={line} className="-mb-[0.2em] -mt-[0.24em] block overflow-hidden pb-[0.2em] pt-[0.24em]">
               <span data-hero-line className="block">
                 {line}
               </span>
             </span>
           ))}
         </h1>
-        <p data-hero-fade className="mt-5 font-sans text-[clamp(1.25rem,2.6vw,2.4rem)] font-light italic text-accent">
+        <p data-hero-fade className="mt-5 font-sans text-[clamp(1.15rem,2vw,1.9rem)] font-light italic text-accent">
           — {dict.home.heroLine3}
         </p>
         <div className="mt-8 grid gap-6 md:grid-cols-12 md:items-end">

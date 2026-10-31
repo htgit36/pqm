@@ -66,13 +66,13 @@ export default function Showreel({ image, youtubeId, fallbackUrl, title, sub, pl
   );
 
   return (
-    <section ref={root} className="relative h-[90svh] min-h-[560px] bg-ink">
+    <section ref={root} className="relative h-[90svh] min-h-[560px]">
       <div data-reel-frame className="grain absolute inset-0 overflow-hidden">
         <Img src={image} alt="" sizes="100vw" />
         <div className="absolute inset-0 bg-ink/55" />
       </div>
       <div className="relative z-10 flex h-full flex-col items-center justify-center gap-8 px-4 text-center">
-        <p className="display text-[clamp(3.5rem,13vw,13rem)]">{title}</p>
+        <p className="display text-[clamp(2.75rem,9vw,9rem)]">{title}</p>
         {trigger}
         <p className="max-w-sm text-fg/80">{sub}</p>
       </div>

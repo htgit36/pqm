@@ -13,10 +13,16 @@ export const settingDefaults = {
   tiktok: "",
   addressVi: "Tổ 9, Ấp Suối Đá, Xã Dương Tơ, TP. Phú Quốc, Kiên Giang",
   addressEn: "Group 9, Suoi Da Hamlet, Duong To Commune, Phu Quoc, Kien Giang, Vietnam",
+  mapLink: "https://maps.app.goo.gl/CM3MEGnoSG1QCQqH9",
+  mapCoords: "10.2300994,103.970658",
   heroImage: "/images/dji-0099.webp",
   heroVideo: "",
   showreelUrl: "",
   showreelImage: "/images/dji-0952.webp",
+  whyImage: "/images/dscf0024.webp",
+  founderImage: "",
+  aboutImage: "/images/deepc-101.webp",
+  equipmentImage: "/images/dji-0952.webp",
 };
 
 export type Settings = typeof settingDefaults;
@@ -33,10 +39,16 @@ export const settingLabels: Record<SettingKey, string> = {
   tiktok: "TikTok",
   addressVi: "Địa chỉ (Tiếng Việt)",
   addressEn: "Địa chỉ (English)",
+  mapLink: "Link Google Maps của công ty",
+  mapCoords: "Tọa độ bản đồ (vĩ độ,kinh độ)",
   heroImage: "Ảnh nền trang chủ",
   heroVideo: "Video nền trang chủ (.mp4)",
   showreelUrl: "Link YouTube showreel",
   showreelImage: "Ảnh nền khu vực showreel",
+  whyImage: "Trang chủ — ảnh khối “Vì sao chọn”",
+  founderImage: "Trang chủ — ảnh chân dung Founder",
+  aboutImage: "Giới thiệu — ảnh lớn đầu trang",
+  equipmentImage: "Giới thiệu — ảnh khối Thiết bị",
 };
 
 export const getSettings = cache(async (): Promise<Settings> => {

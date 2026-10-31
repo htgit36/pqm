@@ -28,7 +28,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   const info = [
     { Icon: Phone, label: dict.contact.phone, value: phoneDisplay(settings.phone), href: `tel:${settings.phone}` },
     { Icon: Mail, label: dict.contact.email, value: settings.email, href: `mailto:${settings.email}` },
-    { Icon: Pin, label: dict.contact.office, value: address, href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.addressVi)}` },
+    { Icon: Pin, label: dict.contact.office, value: address, href: settings.mapLink },
   ];
 
   return (
@@ -67,10 +67,10 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         <div className="relative aspect-[16/9] overflow-hidden rounded-md border border-line md:aspect-[21/8]">
           <iframe
             title="Google Maps"
-            className="absolute inset-0 h-full w-full grayscale invert-[0.92] hue-rotate-180"
+            className="absolute inset-0 h-full w-full"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            src={`https://www.google.com/maps?q=${encodeURIComponent("Suối Đá, Dương Tơ, Phú Quốc")}&output=embed`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent(settings.mapCoords)}&z=16&hl=${locale}&output=embed`}
           />
         </div>
       </section>

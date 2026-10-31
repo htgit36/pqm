@@ -2,22 +2,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { LineReveal, Parallax, Reveal } from "@/components/motion/Reveal";
-import { CtaBlock, Eyebrow, ProjectCard } from "@/components/site/Blocks";
+import { CtaBlock, Eyebrow } from "@/components/site/Blocks";
 import { ArrowLeft, ArrowUpRight } from "@/components/site/Icons";
 import Img from "@/components/site/Img";
-import { getFeaturedProjects, getProjects, getService, getServices } from "@/lib/content";
+import { getService, getServices } from "@/lib/content";
 import { getDictionary } from "@/lib/dictionaries";
 import { href, tr, type Locale } from "@/lib/i18n";
 import { renderMarkdown } from "@/lib/utils";
 
 type Props = { params: Promise<{ locale: Locale; slug: string }> };
-
-// Dịch vụ → nhóm dự án liên quan.
-const serviceCategory: Record<string, string> = {
-  "chup-anh-quay-phim-su-kien": "event",
-  "san-xuat-phim-doanh-nghiep": "corporate",
-  "chup-anh-teambuilding-gala-dinner": "teambuilding",
-};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
@@ -36,9 +29,7 @@ export default async function ServicePage({ params }: Props) {
   const s = await getService(slug);
   if (!s) notFound();
   const dict = getDictionary(locale);
-  const cat = serviceCategory[slug];
-  const [all, projects, featured] = await Promise.all([getServices(), cat ? getProjects() : Promise.resolve([]), getFeaturedProjects()]);
-  const related = (cat ? projects.filter((p) => p.category === cat) : featured).slice(0, 4);
+  const all = await getServices();
   const others = all.filter((x) => x.id !== s.id).slice(0, 4);
 
   return (
@@ -54,7 +45,7 @@ export default async function ServicePage({ params }: Props) {
               <ArrowLeft className="h-4 w-4" /> {dict.nav.services}
             </Link>
           </Reveal>
-          <LineReveal as="h1" lines={[tr(s, "title", locale)]} immediate delay={0.1} className="display mt-6 max-w-[18ch] text-[clamp(3rem,9vw,9rem)]" />
+          <LineReveal as="h1" lines={[tr(s, "title", locale)]} immediate delay={0.1} className="display mt-6 max-w-[18ch] text-[clamp(2.4rem,6vw,6rem)]" />
         </div>
       </section>
 
@@ -74,29 +65,13 @@ export default async function ServicePage({ params }: Props) {
         </Reveal>
       </section>
 
-      {related.length > 0 && (
-        <section className="container-x border-t border-line py-20 md:py-28">
-          <div className="mb-12 flex items-end justify-between gap-6">
-            <Eyebrow>{dict.common.relatedWork}</Eyebrow>
-            <Link href={href(locale, "work")} className="link-u text-sm text-fg/80 hover:text-fg">
-              {dict.common.viewAll}
-            </Link>
-          </div>
-          <div className="grid gap-x-6 gap-y-14 md:grid-cols-2">
-            {related.map((p) => (
-              <ProjectCard key={p.id} project={p} locale={locale} dict={dict} />
-            ))}
-          </div>
-        </section>
-      )}
-
       <section className="container-x border-t border-line py-20 md:py-28">
         <Eyebrow>{dict.common.otherServices}</Eyebrow>
         <ul className="mt-10 border-t border-line">
           {others.map((o) => (
             <li key={o.id} className="border-b border-line">
               <Link href={href(locale, "services", o.slug)} className="group flex items-center justify-between gap-6 py-6">
-                <span className="display text-[clamp(1.75rem,3.5vw,3rem)] transition-colors group-hover:text-accent">{tr(o, "title", locale)}</span>
+                <span className="display text-[clamp(1.5rem,2.8vw,2.4rem)] transition-colors group-hover:text-accent">{tr(o, "title", locale)}</span>
                 <ArrowUpRight className="h-6 w-6 shrink-0 transition-transform duration-500 group-hover:rotate-45" />
               </Link>
             </li>

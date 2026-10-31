@@ -3,6 +3,7 @@ import { Counter, LineReveal, Parallax, Reveal, ScrubText } from "@/components/m
 import { CtaBlock, Eyebrow, Marquee, PageHeader } from "@/components/site/Blocks";
 import Img from "@/components/site/Img";
 import { getClients } from "@/lib/content";
+import { getSettings } from "@/lib/settings";
 import { getDictionary } from "@/lib/dictionaries";
 import { href, type Locale } from "@/lib/i18n";
 
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 export default async function AboutPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   const dict = getDictionary(locale);
-  const clients = await getClients();
+  const [clients, settings] = await Promise.all([getClients(), getSettings()]);
 
   return (
     <>
@@ -27,7 +28,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       <section className="relative h-[70svh] min-h-[420px] overflow-hidden">
         <Parallax className="absolute inset-0" amount={10}>
-          <Img src="/images/deepc-101.webp" alt="Phú Quốc Media team building" sizes="100vw" />
+          <Img src={settings.aboutImage} alt="Phú Quốc Media" sizes="100vw" />
         </Parallax>
       </section>
 
@@ -37,13 +38,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <Eyebrow index="01">{dict.home.introEyebrow}</Eyebrow>
           </div>
           <div className="md:col-span-9">
-            <ScrubText text={dict.home.intro} className="text-[clamp(1.6rem,3.2vw,3.2rem)] font-medium leading-[1.2] tracking-tight" />
+            <ScrubText text={dict.home.intro} className="text-[clamp(1.4rem,2.6vw,2.6rem)] font-medium leading-[1.2] tracking-tight" />
           </div>
         </div>
         <Reveal className="mt-24 grid grid-cols-2 border-t border-line md:grid-cols-4">
           {dict.home.stats.map((s, i) => (
             <div key={s.label} data-stagger className={`py-8 ${i % 2 === 1 ? "border-l border-line pl-4 md:pl-8" : ""} ${i === 2 ? "md:border-l md:pl-8" : ""}`}>
-              <Counter value={s.value} suffix={s.suffix} className="display block text-[clamp(3rem,6vw,5.5rem)] tabular-nums" />
+              <Counter value={s.value} suffix={s.suffix} className="display block text-[clamp(2.5rem,5vw,4.5rem)] tabular-nums" />
               <p className="mt-2 text-sm text-muted">{s.label}</p>
             </div>
           ))}
@@ -77,7 +78,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                     {v}
                   </span>,
                 ]}
-                className="display py-4 text-[clamp(3rem,10vw,9rem)]"
+                className="display py-4 text-[clamp(2.25rem,6.5vw,6rem)]"
               />
             </li>
           ))}
@@ -86,7 +87,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       <section className="container-x grid gap-12 pb-28 md:grid-cols-12 md:pb-40">
         <Reveal className="relative aspect-[4/3] overflow-hidden rounded-md md:col-span-6">
-          <Img src="/images/dji-0952.webp" alt="" sizes="(min-width:768px) 50vw, 100vw" />
+          <Img src={settings.equipmentImage} alt="" sizes="(min-width:768px) 50vw, 100vw" />
         </Reveal>
         <div className="md:col-span-5 md:col-start-8">
           <Eyebrow index="05">{dict.pages.equipment}</Eyebrow>

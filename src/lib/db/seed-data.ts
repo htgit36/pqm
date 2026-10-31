@@ -25,7 +25,7 @@ Từ hội nghị khách hàng, lễ ký kết, ra mắt sản phẩm đến Gal
 ### Vì sao chọn chúng tôi
 - Ê-kíp bản địa am hiểu địa hình, ánh sáng tại Phú Quốc
 - Hệ thống máy ảnh Fujifilm cao cấp, gimbal DJI, drone/FPV chuyên dụng
-- Hợp đồng rõ ràng, xuất hóa đơn VAT 8% cho mọi giao dịch`,
+- Hợp đồng rõ ràng, có hóa đơn tài chính hợp lệ`,
     bodyEn: `## Capturing the full spirit of your event
 
 From client conferences, signing ceremonies and product launches to gala dinners and year-end parties — our crew arrives early, knows the run-of-show and stays in control so no moment is missed.
@@ -39,7 +39,7 @@ From client conferences, signing ceremonies and product launches to gala dinners
 ### Why us
 - A local crew that knows Phu Quoc's terrain and light
 - Premium Fujifilm cameras, DJI gimbals, professional drones and FPV
-- Clear contracts and VAT invoices for every engagement`,
+- Clear contracts and valid financial invoices`,
     coverImage: "/images/daochienbinh-n3-370.webp",
     featured: true,
     sortOrder: 1,
@@ -284,7 +284,7 @@ Gửi trước run-of-show, danh sách khách VIP và các khoảnh khắc bắt
 Hỏi rõ thời gian trả ảnh nhanh trong ngày và highlight video — đặc biệt khi cần đăng truyền thông ngay sau sự kiện.
 
 ## 5. Pháp lý và hóa đơn
-Làm việc với đơn vị có tư cách pháp nhân, hợp đồng rõ ràng và xuất hóa đơn VAT giúp quy trình thanh toán của doanh nghiệp thuận tiện.`,
+Làm việc với đơn vị có tư cách pháp nhân, hợp đồng rõ ràng và hóa đơn tài chính hợp lệ giúp quy trình thanh toán của doanh nghiệp thuận tiện.`,
     bodyEn: `Hosting an event in Phu Quoc gives you stunning scenery — and a few challenges for your production team.
 
 ## 1. Prefer a local crew
@@ -300,7 +300,7 @@ Send the program, VIP list and key moments (ribbon cutting, signing, awards) so 
 Agree on same-day photo delivery and highlight video timing — especially if you need to publish right after the event.
 
 ## 5. Contracts and invoicing
-Working with a registered company with clear contracts and VAT invoices keeps your accounting simple.`,
+Working with a registered company with clear contracts and valid financial invoices keeps your accounting simple.`,
     coverImage: "/images/daochienbinh-n3-370.webp",
     publishedAt: new Date("2026-09-15T09:00:00+07:00"),
   },
