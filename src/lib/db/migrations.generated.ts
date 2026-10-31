@@ -10,5 +10,11 @@ export const migrations: { tag: string; statements: string[] }[] = [
       "CREATE TABLE `services` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`slug` varchar(191) NOT NULL,\n\t`title_vi` varchar(255) NOT NULL,\n\t`title_en` varchar(255) NOT NULL DEFAULT '',\n\t`summary_vi` text,\n\t`summary_en` text,\n\t`body_vi` mediumtext,\n\t`body_en` mediumtext,\n\t`cover_image` varchar(500),\n\t`featured` boolean NOT NULL DEFAULT false,\n\t`published` boolean NOT NULL DEFAULT true,\n\t`sort_order` int NOT NULL DEFAULT 0,\n\t`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,\n\tCONSTRAINT `services_id` PRIMARY KEY(`id`),\n\tCONSTRAINT `services_slug_unique` UNIQUE(`slug`)\n);",
       "CREATE TABLE `settings` (\n\t`key` varchar(100) NOT NULL,\n\t`value` text NOT NULL,\n\tCONSTRAINT `settings_key` PRIMARY KEY(`key`)\n);"
     ]
+  },
+  {
+    "tag": "0001_light_aaron_stack",
+    "statements": [
+      "CREATE TABLE `testimonials` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`author_name` varchar(255) NOT NULL,\n\t`author_role_vi` varchar(255),\n\t`author_role_en` varchar(255),\n\t`quote_vi` text NOT NULL,\n\t`quote_en` text,\n\t`avatar` varchar(500),\n\t`published` boolean NOT NULL DEFAULT true,\n\t`sort_order` int NOT NULL DEFAULT 0,\n\tCONSTRAINT `testimonials_id` PRIMARY KEY(`id`)\n);"
+    ]
   }
 ];

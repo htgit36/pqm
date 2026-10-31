@@ -8,7 +8,7 @@ import { ConfirmButton } from "@/components/admin/Fields";
 import { deleteEntity, saveEntity } from "../../../actions";
 import { PageTitle } from "../../ui";
 
-const tables = { projects: schema.projects, services: schema.services, posts: schema.posts, clients: schema.clients };
+const tables = { projects: schema.projects, services: schema.services, posts: schema.posts, clients: schema.clients, testimonials: schema.testimonials };
 
 export default async function EntityEdit({ params }: { params: Promise<{ entity: string; id: string }> }) {
   const { entity, id } = await params;

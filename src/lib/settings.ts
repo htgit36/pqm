@@ -23,6 +23,9 @@ export const settingDefaults = {
   founderImage: "",
   aboutImage: "/images/deepc-101.webp",
   equipmentImage: "/images/dji-0952.webp",
+  taxCode: "1702209163",
+  gaId: "",
+  metaPixelId: "",
 };
 
 export type Settings = typeof settingDefaults;
@@ -49,6 +52,9 @@ export const settingLabels: Record<SettingKey, string> = {
   founderImage: "Trang chủ — ảnh chân dung Founder",
   aboutImage: "Giới thiệu — ảnh lớn đầu trang",
   equipmentImage: "Giới thiệu — ảnh khối Thiết bị",
+  taxCode: "Mã số thuế",
+  gaId: "Google Analytics 4 — Measurement ID (G-XXXXXXXXXX)",
+  metaPixelId: "Meta Pixel ID (dãy số)",
 };
 
 export const getSettings = cache(async (): Promise<Settings> => {

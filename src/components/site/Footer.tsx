@@ -80,10 +80,23 @@ export default function Footer({ locale, dict, settings }: { locale: Locale; dic
         </div>
 
         <div className="mt-20 flex flex-col gap-4 border-t border-line py-6 text-xs text-muted md:flex-row md:items-center md:justify-between">
-          <p>
-            © 2017–{year} {dict.footer.company}. {dict.footer.rights}
-          </p>
-          <p className="flex items-center gap-6">
+          <div className="space-y-2">
+            <p>
+              © 2017–{year} {dict.footer.company}. {dict.footer.rights}
+            </p>
+            {settings.taxCode && (
+              <p>
+                {dict.footer.taxCode}: {settings.taxCode}
+              </p>
+            )}
+          </div>
+          <p className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <Link href={href(locale, "privacy")} className="link-u hover:text-fg">
+              {dict.footer.privacy}
+            </Link>
+            <Link href={href(locale, "terms")} className="link-u hover:text-fg">
+              {dict.footer.terms}
+            </Link>
             <BackToTop label={dict.footer.backToTop} />
           </p>
         </div>

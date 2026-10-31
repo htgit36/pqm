@@ -73,6 +73,18 @@ export const clients = mysqlTable("clients", {
   sortOrder: int().notNull().default(0),
 });
 
+export const testimonials = mysqlTable("testimonials", {
+  id: int().autoincrement().primaryKey(),
+  authorName: varchar({ length: 255 }).notNull(),
+  authorRoleVi: varchar({ length: 255 }),
+  authorRoleEn: varchar({ length: 255 }),
+  quoteVi: text().notNull(),
+  quoteEn: text(),
+  avatar: varchar({ length: 500 }),
+  published: boolean().notNull().default(true),
+  sortOrder: int().notNull().default(0),
+});
+
 export const leads = mysqlTable("leads", {
   id: int().autoincrement().primaryKey(),
   name: varchar({ length: 255 }).notNull(),
@@ -97,4 +109,5 @@ export type Service = typeof services.$inferSelect;
 export type Project = typeof projects.$inferSelect;
 export type Post = typeof posts.$inferSelect;
 export type Client = typeof clients.$inferSelect;
+export type Testimonial = typeof testimonials.$inferSelect;
 export type Lead = typeof leads.$inferSelect;

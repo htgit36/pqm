@@ -9,6 +9,7 @@ const groups: { title: string; keys: SettingKey[] }[] = [
   { title: "Liên hệ", keys: ["phone", "email", "zalo", "messenger", "addressVi", "addressEn", "mapLink", "mapCoords"] },
   { title: "Mạng xã hội", keys: ["facebook", "youtube", "instagram", "tiktok"] },
   { title: "Trang chủ", keys: ["heroImage", "heroVideo", "showreelUrl", "showreelImage"] },
+  { title: "Pháp lý & theo dõi", keys: ["taxCode", "gaId", "metaPixelId"] },
   { title: "Hình minh họa", keys: ["whyImage", "founderImage", "aboutImage", "equipmentImage"] },
 ];
 const images: SettingKey[] = ["heroImage", "showreelImage", "whyImage", "founderImage", "aboutImage", "equipmentImage"];

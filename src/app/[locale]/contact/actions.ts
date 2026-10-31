@@ -20,6 +20,7 @@ const leadSchema = z.object({
   eventDate: z.string().trim().max(64),
   message: z.string().trim().max(5000),
   locale: z.enum(["vi", "en"]),
+  consent: z.literal("on"),
 });
 
 const hits = new Map<string, number[]>();
@@ -35,13 +36,13 @@ export async function submitContact(_: ContactState, formData: FormData): Promis
   // Ô ẩn chống spam: người thật không điền.
   if (formData.get("website")) return { status: "success" };
 
-  const raw = Object.fromEntries(["name", "phone", "email", "company", "service", "eventDate", "message", "locale"].map((k) => [k, String(formData.get(k) ?? "")]));
+  const raw = Object.fromEntries(["name", "phone", "email", "company", "service", "eventDate", "message", "locale", "consent"].map((k) => [k, String(formData.get(k) ?? "")]));
   const parsed = leadSchema.safeParse(raw);
   if (!parsed.success) {
     const errors: Record<string, string> = {};
     for (const issue of parsed.error.issues) {
       const key = String(issue.path[0]);
-      errors[key] = key === "phone" ? "invalidPhone" : key === "email" ? "invalidEmail" : "required";
+      errors[key] = key === "phone" ? "invalidPhone" : key === "email" ? "invalidEmail" : key === "consent" ? "consentRequired" : "required";
     }
     return { status: "error", errors };
   }
@@ -49,8 +50,10 @@ export async function submitContact(_: ContactState, formData: FormData): Promis
   const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
   if (rateLimited(ip)) return { status: "error" };
 
+  const { consent, ...data } = parsed.data;
+  void consent;
   const lead = {
-    ...parsed.data,
+    ...data,
     email: parsed.data.email || null,
     company: parsed.data.company || null,
     service: parsed.data.service || null,

@@ -15,6 +15,7 @@ const tables = {
   services: schema.services,
   posts: schema.posts,
   clients: schema.clients,
+  testimonials: schema.testimonials,
 } as const;
 
 // ——— Đăng nhập ———

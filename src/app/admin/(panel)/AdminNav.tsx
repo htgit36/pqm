@@ -10,6 +10,7 @@ const items = [
   { href: "/admin/services", label: "Dịch vụ" },
   { href: "/admin/posts", label: "Tin tức" },
   { href: "/admin/clients", label: "Đối tác" },
+  { href: "/admin/testimonials", label: "Lời chứng thực" },
   { href: "/admin/media", label: "Thư viện file" },
   { href: "/admin/settings", label: "Cài đặt" },
 ];

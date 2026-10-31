@@ -8,7 +8,7 @@ import Img from "@/components/site/Img";
 import { getService, getServices } from "@/lib/content";
 import { getDictionary } from "@/lib/dictionaries";
 import { href, tr, type Locale } from "@/lib/i18n";
-import { renderMarkdown } from "@/lib/utils";
+import { renderMarkdown, siteUrl } from "@/lib/utils";
 
 type Props = { params: Promise<{ locale: Locale; slug: string }> };
 
@@ -16,8 +16,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   const s = await getService(slug);
   if (!s) return {};
+  const title = tr(s, "title", locale);
+  const place = locale === "en" ? "Phu Quoc" : "Phú Quốc";
   return {
-    title: tr(s, "title", locale),
+    title: title.toLowerCase().includes(place.toLowerCase()) ? title : `${title} ${locale === "en" ? "in" : "tại"} ${place}`,
     description: tr(s, "summary", locale),
     openGraph: { images: s.coverImage ? [s.coverImage] : undefined },
     alternates: { canonical: href(locale, "services", slug), languages: { vi: href("vi", "services", slug), en: href("en", "services", slug) } },
@@ -32,8 +34,32 @@ export default async function ServicePage({ params }: Props) {
   const all = await getServices();
   const others = all.filter((x) => x.id !== s.id).slice(0, 4);
 
+  const url = siteUrl + href(locale, "services", slug);
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: tr(s, "title", locale),
+      description: tr(s, "summary", locale),
+      url,
+      image: s.coverImage ? siteUrl + s.coverImage : undefined,
+      areaServed: { "@type": "Place", name: locale === "en" ? "Phu Quoc, Vietnam" : "Phú Quốc, Việt Nam" },
+      provider: { "@id": `${siteUrl}/#business` },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: dict.nav.home, item: siteUrl + href(locale, "home") },
+        { "@type": "ListItem", position: 2, name: dict.nav.services, item: siteUrl + href(locale, "services") },
+        { "@type": "ListItem", position: 3, name: tr(s, "title", locale), item: url },
+      ],
+    },
+  ];
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <section className="theme-dark relative flex min-h-[88svh] flex-col justify-end overflow-hidden pb-14 pt-40">
         <Parallax className="absolute inset-0" amount={10}>
           <Img src={s.coverImage} alt={tr(s, "title", locale)} priority />

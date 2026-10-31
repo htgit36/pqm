@@ -21,7 +21,7 @@ export type EntityDef = {
   publicPath?: string;
 };
 
-export type EntityKey = "projects" | "services" | "posts" | "clients";
+export type EntityKey = "projects" | "services" | "posts" | "clients" | "testimonials";
 
 const slug: FieldDef = { name: "slug", label: "Đường dẫn (slug)", type: "text", help: "Để trống sẽ tự tạo từ tiêu đề tiếng Việt.", half: true };
 const order: FieldDef = { name: "sortOrder", label: "Thứ tự hiển thị", type: "number", help: "Số nhỏ hiển thị trước.", half: true };
@@ -119,6 +119,22 @@ export const entities: Record<EntityKey, EntityDef> = {
       order,
       { name: "url", label: "Website", type: "url", half: true },
       { name: "logo", label: "Logo", type: "image" },
+    ],
+  },
+  testimonials: {
+    key: "testimonials",
+    label: "Lời chứng thực",
+    singular: "lời chứng thực",
+    titleField: "authorName",
+    fields: [
+      { name: "authorName", label: "Tên người nhận xét", type: "text", required: true, half: true },
+      order,
+      { name: "authorRoleVi", label: "Chức vụ / đơn vị (Tiếng Việt)", type: "text", half: true },
+      { name: "authorRoleEn", label: "Chức vụ / đơn vị (English)", type: "text", half: true },
+      { name: "quoteVi", label: "Nội dung nhận xét (Tiếng Việt)", type: "textarea", required: true, help: "Chỉ đăng nhận xét thật và đã được khách hàng đồng ý." },
+      { name: "quoteEn", label: "Nội dung nhận xét (English)", type: "textarea" },
+      { name: "avatar", label: "Ảnh / logo", type: "image" },
+      published,
     ],
   },
 };

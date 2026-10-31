@@ -15,6 +15,8 @@ export const routes = {
   news: { vi: "tin-tuc", en: "news" },
   about: { vi: "gioi-thieu", en: "about" },
   contact: { vi: "lien-he", en: "contact" },
+  privacy: { vi: "chinh-sach-bao-mat", en: "privacy" },
+  terms: { vi: "dieu-khoan", en: "terms" },
 } as const;
 export type RouteKey = keyof typeof routes;
 

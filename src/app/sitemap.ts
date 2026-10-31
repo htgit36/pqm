@@ -12,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     alternates: { languages: Object.fromEntries(locales.map((l) => [l, siteUrl + href(l, key, slug)])) },
   });
 
-  const statics = (["home", "services", "gallery", "about", "news", "contact"] as RouteKey[]).map((k) => entry(k));
+  const statics = (["home", "services", "gallery", "about", "news", "contact", "privacy", "terms"] as RouteKey[]).map((k) => entry(k));
   try {
     const [services, posts] = await Promise.all([getServices(), getPosts()]);
     return [

@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
   const { locale } = await params;
   const dict = getDictionary(locale);
   return {
-    title: dict.pages.galleryTitle,
+    title: locale === "en" ? "Phu Quoc event & team building photo gallery" : "Thư viện ảnh sự kiện, team building tại Phú Quốc",
     description: dict.pages.galleryLead,
     alternates: { canonical: href(locale, "gallery"), languages: { vi: href("vi", "gallery"), en: href("en", "gallery") } },
   };

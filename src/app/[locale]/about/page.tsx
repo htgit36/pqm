@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
   const { locale } = await params;
   const dict = getDictionary(locale);
   return {
-    title: dict.pages.aboutTitle,
+    title: locale === "en" ? "About — Phu Quoc photo & film crew since 2017" : "Giới thiệu — đội ngũ chụp ảnh, quay phim tại Phú Quốc từ 2017",
     description: dict.pages.aboutLead,
     alternates: { canonical: href(locale, "about"), languages: { vi: href("vi", "about"), en: href("en", "about") } },
   };

@@ -4,6 +4,9 @@ import { startTransition, useActionState, useEffect, useRef } from "react";
 import { submitContact, type ContactState } from "@/app/[locale]/contact/actions";
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
+import Link from "next/link";
+import { track } from "@/components/analytics/track";
+import { href } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "./Icons";
 
@@ -52,7 +55,10 @@ export default function ContactForm({ locale, f, services }: { locale: Locale; f
   const err = state.errors ?? {};
 
   useEffect(() => {
-    if (state.status === "success") form.current?.reset();
+    if (state.status === "success") {
+      form.current?.reset();
+      track("generate_lead", "Lead");
+    }
     if (state.errors) form.current?.querySelector<HTMLElement>("[aria-invalid=true]")?.focus();
     else if (state.status !== "idle") status.current?.focus();
   }, [state]);
@@ -96,6 +102,24 @@ export default function ContactForm({ locale, f, services }: { locale: Locale; f
       <Field name="eventDate" label={f.eventDate} f={f} type="date" />
       <div className="sm:col-span-2">
         <Field name="message" label={f.message} f={f} textarea placeholder={f.messagePlaceholder} />
+      </div>
+
+      <div className="sm:col-span-2">
+        <label className="flex cursor-pointer items-start gap-3 text-sm text-muted">
+          <input type="checkbox" name="consent" aria-invalid={!!err.consent} aria-describedby={err.consent ? "consent-error" : undefined} className="mt-1 h-4 w-4 shrink-0 accent-[var(--color-accent,#3ee0c5)]" />
+          <span>
+            {f.consent}{" "}
+            <Link href={href(locale, "privacy")} target="_blank" className="link-u text-accent">
+              {f.consentLink}
+            </Link>
+            .
+          </span>
+        </label>
+        {err.consent && (
+          <p id="consent-error" className="mt-2 text-sm text-rec">
+            {f.consentRequired}
+          </p>
+        )}
       </div>
 
       <div className="flex flex-col gap-6 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">

@@ -18,6 +18,8 @@ async function load(entity: string): Promise<Row[]> {
       return db.select().from(schema.posts).orderBy(desc(schema.posts.publishedAt));
     case "clients":
       return db.select().from(schema.clients).orderBy(asc(schema.clients.sortOrder));
+    case "testimonials":
+      return db.select().from(schema.testimonials).orderBy(asc(schema.testimonials.sortOrder));
   }
   return [];
 }
@@ -28,7 +30,7 @@ export default async function EntityList({ params, searchParams }: { params: Pro
   const def = entities[entity];
   const rows = await load(entity);
   const sp = await searchParams;
-  const image = (r: Row) => (r.coverImage ?? r.logo) as string | null;
+  const image = (r: Row) => (r.coverImage ?? r.logo ?? r.avatar) as string | null;
 
   return (
     <>
@@ -56,6 +58,7 @@ export default async function EntityList({ params, searchParams }: { params: Pro
                     {entity === "posts" && (r.publishedAt as Date).toLocaleDateString("vi-VN")}
                     {entity === "services" && String(r.slug)}
                     {entity === "clients" && String(r.url ?? "")}
+                    {entity === "testimonials" && String(r.authorRoleVi ?? "")}
                   </p>
                 </div>
                 <div className="hidden shrink-0 gap-2 sm:flex">

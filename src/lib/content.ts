@@ -3,7 +3,7 @@ import { cache } from "react";
 import { and, asc, desc, eq, lte } from "drizzle-orm";
 import { db, schema } from "./db";
 
-const { services, posts, clients } = schema;
+const { services, posts, clients, testimonials } = schema;
 
 export const getServices = cache(() =>
   db.select().from(services).where(eq(services.published, true)).orderBy(asc(services.sortOrder), asc(services.id)),
@@ -36,3 +36,7 @@ export const getPost = cache(async (slug: string) => {
 });
 
 export const getClients = cache(() => db.select().from(clients).orderBy(asc(clients.sortOrder), asc(clients.id)));
+
+export const getTestimonials = cache(() =>
+  db.select().from(testimonials).where(eq(testimonials.published, true)).orderBy(asc(testimonials.sortOrder), asc(testimonials.id)),
+);

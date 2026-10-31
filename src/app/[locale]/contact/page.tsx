@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
   const { locale } = await params;
   const dict = getDictionary(locale);
   return {
-    title: dict.pages.contactTitle,
+    title: locale === "en" ? "Contact & quote — Phu Quoc photography and film" : "Liên hệ & báo giá chụp ảnh, quay phim tại Phú Quốc",
     description: dict.pages.contactLead,
     alternates: { canonical: href(locale, "contact"), languages: { vi: href("vi", "contact"), en: href("en", "contact") } },
   };

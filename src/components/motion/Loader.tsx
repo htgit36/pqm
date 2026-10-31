@@ -35,18 +35,18 @@ export default function Loader() {
     });
     tl.to(counter, {
       v: 100,
-      duration: 1.8,
+      duration: 0.9,
       ease: "power2.inOut",
       onUpdate: () => {
         if (num.current) num.current.textContent = String(Math.round(counter.v)).padStart(3, "0");
       },
     })
-      .to("[data-loader-word]", { yPercent: -110, duration: 0.7, ease: "expo.in", stagger: 0.04 }, "+=0.1")
+      .to("[data-loader-word]", { yPercent: -110, duration: 0.45, ease: "expo.in", stagger: 0.04 }, "+=0.1")
       .add(() => {
         window.__pqmIntro = true;
         window.dispatchEvent(new Event("pqm:intro-done"));
       })
-      .to(root.current, { yPercent: -100, duration: 1.1, ease: "expo.inOut" }, "-=0.2");
+      .to(root.current, { yPercent: -100, duration: 0.8, ease: "expo.inOut" }, "-=0.2");
     return () => {
       tl.kill();
     };

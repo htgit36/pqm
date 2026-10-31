@@ -27,8 +27,13 @@ export const metadata: Metadata = {
   description:
     "Phú Quốc Media: đơn vị chụp ảnh, quay phim sự kiện, phim doanh nghiệp, flycam/FPV và in ảnh lấy ngay chuyên nghiệp tại Phú Quốc từ 2017.",
   applicationName: "Phú Quốc Media",
-  openGraph: { siteName: "Phú Quốc Media", type: "website", images: ["/images/dji-0099.webp"] },
-  twitter: { card: "summary_large_image" },
+  openGraph: {
+    siteName: "Phú Quốc Media",
+    type: "website",
+    locale: "vi_VN",
+    images: [{ url: "/images/og-default.jpg", width: 1200, height: 630, alt: "Phú Quốc Media" }],
+  },
+  twitter: { card: "summary_large_image", images: ["/images/og-default.jpg"] },
 };
 
 export const viewport: Viewport = {

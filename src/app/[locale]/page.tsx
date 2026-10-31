@@ -7,7 +7,7 @@ import { Counter, LineReveal, Reveal, ScrubText } from "@/components/motion/Reve
 import { CtaBlock, Eyebrow, Marquee } from "@/components/site/Blocks";
 import { ArrowUpRight } from "@/components/site/Icons";
 import Img from "@/components/site/Img";
-import { getClients, getServices } from "@/lib/content";
+import { getClients, getServices, getTestimonials } from "@/lib/content";
 import { getFacebookAlbums } from "@/lib/facebook";
 import FbGallery from "@/components/site/FbGallery";
 import { getDictionary } from "@/lib/dictionaries";
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   const dict = getDictionary(locale);
-  const [settings, services, clients, albums] = await Promise.all([getSettings(), getServices(), getClients(), getFacebookAlbums(8)]);
+  const [settings, services, clients, albums, testimonials] = await Promise.all([getSettings(), getServices(), getClients(), getFacebookAlbums(8), getTestimonials().catch(() => [])]);
   const mainServices = services.filter((s) => s.featured).slice(0, 4);
 
   return (
@@ -168,6 +168,38 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         <Marquee items={clients.map((c) => c.name)} />
       </section>
 
+      {/* Lời chứng thực (chỉ hiện khi đã nhập trong Admin) */}
+      {testimonials.length > 0 && (
+        <section className="container-x pb-28 md:pb-40">
+          <Reveal>
+            <Eyebrow index="07">{dict.home.testimonialsEyebrow}</Eyebrow>
+          </Reveal>
+          <LineReveal lines={[dict.home.testimonialsTitle]} className="display mt-6 text-[clamp(2rem,4.2vw,4rem)]" />
+          <Reveal className="mt-14 grid gap-px overflow-hidden rounded-md border border-line bg-line md:grid-cols-3">
+            {testimonials.map((t) => (
+              <figure key={t.id} data-stagger className="flex flex-col justify-between gap-10 bg-surface/80 p-8 md:p-10">
+                <blockquote className="text-lg leading-relaxed text-fg/85">
+                  <span className="text-accent">“</span>
+                  {tr(t, "quote", locale)}
+                  <span className="text-accent">”</span>
+                </blockquote>
+                <figcaption className="flex items-center gap-4">
+                  {t.avatar && (
+                    <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-line">
+                      <Img src={t.avatar} alt={t.authorName} sizes="48px" />
+                    </span>
+                  )}
+                  <span>
+                    <span className="block font-semibold">{t.authorName}</span>
+                    <span className="block text-sm text-muted">{tr(t, "authorRole", locale)}</span>
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </Reveal>
+        </section>
+      )}
+
       {/* Founder */}
       <section className="container-x pb-28 md:pb-44">
         <div className="grid items-center gap-12 border-t border-line pt-20 md:grid-cols-12 md:pt-28">
@@ -195,6 +227,43 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
             </Reveal>
           </div>
         </div>
+      </section>
+
+      {/* Câu hỏi thường gặp */}
+      <section className="container-x pb-28 md:pb-44" aria-labelledby="faq-title">
+        <div className="grid gap-12 md:grid-cols-12">
+          <div className="md:col-span-4">
+            <Reveal>
+              <Eyebrow index="08">{dict.home.faqEyebrow}</Eyebrow>
+            </Reveal>
+            <h2 id="faq-title" className="display mt-6 text-[clamp(2rem,4vw,3.5rem)]">
+              {dict.home.faqTitle}
+            </h2>
+          </div>
+          <Reveal className="border-t border-line md:col-span-7 md:col-start-6">
+            {dict.home.faq.map((item) => (
+              <details key={item.q} className="group border-b border-line py-6">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-semibold marker:hidden [&::-webkit-details-marker]:hidden">
+                  {item.q}
+                  <span aria-hidden className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line text-accent transition-transform duration-300 group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-4 max-w-[60ch] leading-relaxed text-fg/70">{item.a}</p>
+              </details>
+            ))}
+          </Reveal>
+        </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: dict.home.faq.map((item) => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })),
+            }),
+          }}
+        />
       </section>
 
       <CtaBlock locale={locale} dict={dict} />
