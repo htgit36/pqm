@@ -5,7 +5,7 @@ import { Messenger, Phone, Zalo } from "./Icons";
 export default function FloatingContact({ dict, settings }: { dict: Dictionary; settings: Settings }) {
   const items = [
     settings.zalo && { href: `https://zalo.me/${settings.zalo.replace(/\D/g, "")}`, label: dict.float.zalo, Icon: Zalo, cls: "flex bg-[#0068ff] text-white" },
-    settings.messenger && { href: settings.messenger, label: dict.float.messenger, Icon: Messenger, cls: "hidden md:flex bg-fg text-ink" },
+    settings.messenger && { href: settings.messenger, label: dict.float.messenger, Icon: Messenger, cls: "hidden md:flex bg-white text-[#0084ff] ring-1 ring-black/10" },
     settings.phone && { href: `tel:${settings.phone}`, label: dict.float.call, Icon: Phone, cls: "flex bg-accent text-ink" },
   ].filter(Boolean) as { href: string; label: string; Icon: typeof Phone; cls: string }[];
 

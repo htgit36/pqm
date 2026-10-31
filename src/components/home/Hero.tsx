@@ -70,7 +70,7 @@ export default function Hero({ dict, image, video }: { dict: Dictionary; image: 
   }, []);
 
   return (
-    <section ref={root} className="grain relative flex h-[100svh] min-h-[620px] flex-col overflow-hidden" aria-label="Hero">
+    <section ref={root} className="theme-dark grain relative flex h-[100svh] min-h-[620px] flex-col overflow-hidden" aria-label="Hero">
       <div data-hero-media className="absolute inset-0">
         <div className="absolute inset-0 animate-kenburns">
           {video ? (

@@ -59,7 +59,7 @@ export function Marquee({ items, className }: { items: string[]; className?: str
 
 export function CtaBlock({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   return (
-    <section className="relative overflow-hidden border-t border-line py-28 md:py-44">
+    <section className="theme-dark relative overflow-hidden bg-ink py-28 md:py-44">
       <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-[60vw] w-[60vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-[120px]" />
       <div className="container-x relative text-center">
         <Reveal>

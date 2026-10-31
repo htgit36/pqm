@@ -66,7 +66,7 @@ export default function Showreel({ image, youtubeId, fallbackUrl, title, sub, pl
   );
 
   return (
-    <section ref={root} className="relative h-[90svh] min-h-[560px]">
+    <section ref={root} className="theme-dark relative h-[90svh] min-h-[560px]">
       <div data-reel-frame className="grain absolute inset-0 overflow-hidden">
         <Img src={image} alt="" sizes="100vw" />
         <div className="absolute inset-0 bg-ink/55" />
@@ -78,7 +78,7 @@ export default function Showreel({ image, youtubeId, fallbackUrl, title, sub, pl
       </div>
 
       {open && youtubeId && (
-        <div role="dialog" aria-modal="true" aria-label={title} className="fixed inset-0 z-[95] flex items-center justify-center bg-ink/95 p-4 backdrop-blur" onClick={() => setOpen(false)}>
+        <div role="dialog" aria-modal="true" aria-label={title} className="theme-dark fixed inset-0 z-[95] flex items-center justify-center bg-ink/95 p-4 backdrop-blur" onClick={() => setOpen(false)}>
           <button
             ref={closeBtn}
             type="button"

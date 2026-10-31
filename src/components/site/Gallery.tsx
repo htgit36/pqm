@@ -32,7 +32,7 @@ export function Lightbox({ images, start, title, closeLabel, onClose, caption, l
   }, [images.length, onClose]);
 
   return (
-    <div role="dialog" aria-modal="true" aria-label={title} className="fixed inset-0 z-[95] flex flex-col items-center justify-center bg-ink/95 backdrop-blur" onClick={onClose}>
+    <div role="dialog" aria-modal="true" aria-label={title} className="theme-dark fixed inset-0 z-[95] flex flex-col items-center justify-center bg-ink/95 backdrop-blur" onClick={onClose}>
       <div className="relative h-[72vh] w-[92vw]" onClick={(e) => e.stopPropagation()}>
         <Img src={images[index]} alt={`${title} ${index + 1}`} sizes="92vw" className="!object-contain" />
       </div>

@@ -1,0 +1,14 @@
+{
+  "_note": "Bản chụp nội dung đã chỉnh trên host (phuquocmedia.vn) ngày 2026-10-31. Chỉ áp dụng ở máy local khi .env.local có APPLY_SNAPSHOT=1. Ảnh /media/... nằm trong storage/uploads.",
+  "settings": {
+    "heroImage": "/media/2026/10/dji-0039-9524d1.webp",
+    "whyImage": "/media/2026/10/dscf1860-41bd83.webp",
+    "founderImage": "/media/2026/10/550576060-3178192062356204-276861763420457545-n-be3fe0.webp",
+    "aboutImage": "/media/2026/10/dscf1593-440bac.webp",
+    "equipmentImage": "/media/2026/10/dscf3694-522cef.webp"
+  },
+  "serviceCovers": {
+    "flycam-drone-fpv": "/media/2026/10/dji-0045-141437.webp",
+    "in-anh-lay-ngay": "/media/2026/10/1790311243283-1555248132143621682-6771040151931554-9c40f8.webp"
+  }
+}

@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #10171c;
-  --color-surface: #172128;
-  --color-raise: #1f2b33;
-  --color-fg: #f3f1ec;
-  --color-muted: #a3aaad;
-  --color-dim: #6c777d;
-  --color-line: rgb(243 241 236 / 0.12);
-  --color-accent: #3ee0c5;
-  --color-accent-deep: #0f8f80;
+  /* Giao diện sáng: "ink" là màu nền trang, "fg" là màu chữ */
+  --color-ink: #f4f9fa;
+  --color-surface: #ffffff;
+  --color-raise: #e5eef1;
+  --color-fg: #0e1d25;
+  --color-muted: #4a5d66;
+  --color-dim: #7a8a92;
+  --color-line: rgb(14 29 37 / 0.12);
+  --color-accent: #087a6e;
+  --color-accent-deep: #065f56;
   --color-rec: #ff3b30;
 
   --font-display: var(--font-archivo), "Arial Narrow", sans-serif;
@@ -42,24 +43,38 @@
   }
 }
 
+/* Vùng nền tối cục bộ (hero, showreel, kêu gọi, chân trang…): đảo lại bảng màu bên trong */
+.theme-dark {
+  --color-ink: #0b1318;
+  --color-surface: #121d24;
+  --color-raise: #1a2830;
+  --color-fg: #f3f1ec;
+  --color-muted: #aab2b5;
+  --color-dim: #6c777d;
+  --color-line: rgb(243 241 236 / 0.14);
+  --color-accent: #3ee0c5;
+  --color-accent-deep: #0f8f80;
+  color: var(--color-fg);
+}
+
 @layer base {
   html {
     background: var(--color-ink);
     color: var(--color-fg);
-    color-scheme: dark;
+    color-scheme: light;
     -webkit-text-size-adjust: 100%;
   }
   body {
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.6;
-    /* Nền xanh than có quầng sáng màu biển, cố định khi cuộn */
+    /* Nền sáng gradient: xanh biển nhạt, ngọc lam và cát ấm, cố định khi cuộn */
     background-color: var(--color-ink);
     background-image:
-      radial-gradient(1100px 700px at 88% -5%, rgb(62 224 197 / 0.13), transparent 60%),
-      radial-gradient(900px 700px at -10% 35%, rgb(56 120 160 / 0.2), transparent 62%),
-      radial-gradient(800px 600px at 60% 105%, rgb(62 224 197 / 0.08), transparent 60%),
-      linear-gradient(180deg, #131c22 0%, #10171c 45%, #121a20 100%);
+      radial-gradient(1200px 800px at 92% -8%, rgb(20 184 160 / 0.17), transparent 60%),
+      radial-gradient(1000px 800px at -10% 32%, rgb(70 150 210 / 0.17), transparent 62%),
+      radial-gradient(900px 700px at 72% 110%, rgb(250 200 140 / 0.22), transparent 60%),
+      linear-gradient(180deg, #f7fbfc 0%, #edf5f7 50%, #f7faf8 100%);
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;

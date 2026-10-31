@@ -23,7 +23,7 @@ export default function FbGallery({ albums, labels, locale, compact }: { albums:
             type="button"
             onClick={() => setOpen(a)}
             data-cursor={labels.view}
-            className={cn("group relative block overflow-hidden rounded-md bg-raise text-left", !compact && i % 7 === 0 && "md:col-span-2 md:row-span-2")}
+            className={cn("theme-dark group relative block overflow-hidden rounded-md bg-raise text-left", !compact && i % 7 === 0 && "md:col-span-2 md:row-span-2")}
           >
             <div className={cn("relative", !compact && i % 7 === 0 ? "aspect-square" : "aspect-[4/5]")}>
               {/* eslint-disable-next-line @next/next/no-img-element */}

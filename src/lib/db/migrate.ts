@@ -1,4 +1,6 @@
-import { sql } from "drizzle-orm";
+import fs from "node:fs";
+import path from "node:path";
+import { eq, sql } from "drizzle-orm";
 import { db, pool, schema } from "./index";
 import { migrations } from "./migrations.generated";
 import { seedClients, seedPosts, seedProjects, seedServices } from "./seed-data";
@@ -12,6 +14,21 @@ const dataPatches = [
     ],
   },
 ];
+
+// Chỉ dùng ở máy local (APPLY_SNAPSHOT=1): áp bản chụp nội dung lấy từ host để local giống host.
+async function applySnapshot() {
+  if (process.env.APPLY_SNAPSHOT !== "1") return;
+  const file = path.join(/* turbopackIgnore: true */ process.cwd(), "data", "host-snapshot.json");
+  if (!fs.existsSync(file)) return;
+  const snap = JSON.parse(fs.readFileSync(file, "utf8")) as { settings?: Record<string, string>; serviceCovers?: Record<string, string> };
+  for (const [key, value] of Object.entries(snap.settings ?? {})) {
+    await db.insert(schema.settings).values({ key, value }).onDuplicateKeyUpdate({ set: { value } });
+  }
+  for (const [slug, coverImage] of Object.entries(snap.serviceCovers ?? {})) {
+    await db.update(schema.services).set({ coverImage }).where(eq(schema.services.slug, slug));
+  }
+  console.log("[db] Đã áp bản chụp nội dung từ host.");
+}
 
 // Chạy khi server khởi động (src/instrumentation.ts): tạo/cập nhật bảng từ các
 // migration đã nhúng sẵn, rồi nạp dữ liệu mẫu nếu cơ sở dữ liệu còn trống.
@@ -46,11 +63,12 @@ export async function runMigrations() {
   }
 
   const [{ count }] = await db.select({ count: sql<number>`count(*)` }).from(schema.services);
-  if (Number(count) > 0) return;
-
-  await db.insert(schema.services).values(seedServices);
-  await db.insert(schema.projects).values(seedProjects);
-  await db.insert(schema.clients).values(seedClients);
-  await db.insert(schema.posts).values(seedPosts);
-  console.log("[db] Đã nạp dữ liệu mẫu.");
+  if (Number(count) === 0) {
+    await db.insert(schema.services).values(seedServices);
+    await db.insert(schema.projects).values(seedProjects);
+    await db.insert(schema.clients).values(seedClients);
+    await db.insert(schema.posts).values(seedPosts);
+    console.log("[db] Đã nạp dữ liệu mẫu.");
+  }
+  await applySnapshot();
 }

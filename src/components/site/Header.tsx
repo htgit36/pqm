@@ -72,6 +72,9 @@ export default function Header({ locale, dict, phone, email }: { locale: Locale;
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  // Trang có ảnh tối ở đầu (trang chủ, chi tiết dịch vụ): header trong suốt, chữ sáng.
+  const darkTop = /^\/(en)?$/.test(pathname) || /^\/(dich-vu|en\/services)\/[^/]+$/.test(pathname);
+  const onDark = darkTop && !scrolled && !open;
   const other: Locale = locale === "vi" ? "en" : "vi";
   const isActive = (key: RouteKey) => {
     const base = href(locale, key);
@@ -87,12 +90,13 @@ export default function Header({ locale, dict, phone, email }: { locale: Locale;
         className={cn(
           "fixed inset-x-0 top-0 z-[60] transition-[transform,background-color,backdrop-filter] duration-700 ease-[var(--ease-expo)]",
           hidden && !open && "-translate-y-full",
-          scrolled && !open && "bg-ink/70 backdrop-blur-md",
+          scrolled && !open && "bg-ink/85 shadow-[0_1px_0_var(--color-line)] backdrop-blur-md",
+          onDark && "theme-dark",
         )}
       >
         <div className="container-x flex h-[72px] items-center justify-between gap-6 md:h-[84px]">
           <Link href={href(locale, "home")} className="relative z-10 flex items-center gap-3" aria-label="Phú Quốc Media">
-            <Logo priority className="h-12 md:h-[60px]" />
+            <Logo priority variant={onDark ? "light" : "dark"} className="h-12 md:h-[60px]" />
           </Link>
 
           <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">

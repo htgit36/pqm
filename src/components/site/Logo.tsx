@@ -1,16 +1,17 @@
 import Image from "next/image";
 
-// Logo Phú Quốc Media (bản chữ sáng cho nền tối). Tỉ lệ gốc 1208×805.
-export default function Logo({ className, priority }: { className?: string; priority?: boolean }) {
+// Logo Phú Quốc Media. variant="dark": chữ đậm cho nền sáng; "light": chữ sáng cho nền tối/ảnh.
+// Tỉ lệ gốc 1208×805.
+export default function Logo({ className, priority, variant = "dark" }: { className?: string; priority?: boolean; variant?: "dark" | "light" }) {
   return (
     <Image
-      src="/images/logo-light.png"
+      src={variant === "light" ? "/images/logo-light.png" : "/images/logo-dark.png"}
       alt="Phú Quốc Media"
       width={1208}
       height={805}
       priority={priority}
       sizes="160px"
-      className={`h-auto w-auto ${className ?? ""}`}
+      className={`w-auto ${className ?? ""}`}
     />
   );
 }

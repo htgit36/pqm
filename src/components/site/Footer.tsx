@@ -18,11 +18,11 @@ export default function Footer({ locale, dict, settings }: { locale: Locale; dic
   const links: RouteKey[] = ["services", "gallery", "about", "news", "contact"];
 
   return (
-    <footer className="relative overflow-hidden border-t border-line bg-ink/40 pt-20 md:pt-28">
+    <footer className="theme-dark relative overflow-hidden bg-ink pt-20 md:pt-28">
       <div className="container-x">
         <div className="grid gap-14 md:grid-cols-12">
           <div className="md:col-span-5">
-            <Logo className="mb-10 h-20 md:h-24" />
+            <Logo variant="light" className="mb-10 h-20 md:h-24" />
             <p className="eyebrow mb-6">{dict.home.ctaEyebrow}</p>
             <a href={`tel:${settings.phone}`} className="display block text-[clamp(2rem,4.5vw,4rem)] transition-colors hover:text-accent">
               {phoneDisplay(settings.phone)}

@@ -34,7 +34,7 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <>
-      <section className="relative flex min-h-[88svh] flex-col justify-end overflow-hidden pb-14 pt-40">
+      <section className="theme-dark relative flex min-h-[88svh] flex-col justify-end overflow-hidden pb-14 pt-40">
         <Parallax className="absolute inset-0" amount={10}>
           <Img src={s.coverImage} alt={tr(s, "title", locale)} priority />
         </Parallax>
