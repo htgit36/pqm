@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "node scripts/embed-migrations.mjs && next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "db:dev": "node scripts/dev-db.mjs",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate && node scripts/embed-migrations.mjs"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.4",
