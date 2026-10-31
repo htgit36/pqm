@@ -1,0 +1,27 @@
+import type { MetadataRoute } from "next";
+import { getPosts, getProjects, getServices } from "@/lib/content";
+import { href, locales, type RouteKey } from "@/lib/i18n";
+import { siteUrl } from "@/lib/utils";
+
+export const dynamic = "force-dynamic";
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const entry = (key: RouteKey, slug?: string, lastModified?: Date): MetadataRoute.Sitemap[number] => ({
+    url: siteUrl + href("vi", key, slug),
+    lastModified,
+    alternates: { languages: Object.fromEntries(locales.map((l) => [l, siteUrl + href(l, key, slug)])) },
+  });
+
+  const statics = (["home", "services", "work", "about", "news", "contact"] as RouteKey[]).map((k) => entry(k));
+  try {
+    const [services, projects, posts] = await Promise.all([getServices(), getProjects(), getPosts()]);
+    return [
+      ...statics,
+      ...services.map((s) => entry("services", s.slug, s.updatedAt)),
+      ...projects.map((p) => entry("work", p.slug, p.updatedAt)),
+      ...posts.map((p) => entry("news", p.slug, p.updatedAt)),
+    ];
+  } catch {
+    return statics;
+  }
+}

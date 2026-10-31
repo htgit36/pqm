@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #070707;
+  --color-surface: #101010;
+  --color-raise: #171717;
+  --color-fg: #f3f1ec;
+  --color-muted: #9b9a95;
+  --color-dim: #64635f;
+  --color-line: rgb(243 241 236 / 0.12);
+  --color-accent: #3ee0c5;
+  --color-accent-deep: #0f8f80;
+  --color-rec: #ff3b30;
+
+  --font-display: var(--font-archivo), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-bevietnam), system-ui, sans-serif;
+
+  --ease-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-cine: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-blink: blink 1.2s steps(2, start) infinite;
+  --animate-kenburns: kenburns 24s ease-out both;
+
+  @keyframes marquee {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  @keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+  @keyframes kenburns {
+    from {
+      transform: scale(1.18);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color: var(--color-fg);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    background: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+  img,
+  video {
+    max-width: 100%;
+  }
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    font-stretch: 72%;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    line-height: 0.92;
+  }
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .container-x {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 3.5rem);
+    max-width: 1680px;
+  }
+  .hairline {
+    border-color: var(--color-line);
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    pointer-events: none;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 1s steps(4) infinite;
+  }
+  @keyframes grain {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-3%, 2%); }
+    50% { transform: translate(2%, -3%); }
+    75% { transform: translate(-2%, -1%); }
+    100% { transform: translate(0, 0); }
+  }
+
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 48px;
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    overflow: hidden;
+    isolation: isolate;
+    cursor: pointer;
+    transition: color 0.45s var(--ease-expo);
+  }
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    transform: translateY(101%);
+    transition: transform 0.55s var(--ease-expo);
+  }
+  .btn:hover::before {
+    transform: translateY(0);
+  }
+  .btn-accent {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+  .btn-accent::before {
+    background: var(--color-fg);
+  }
+  .btn-ghost {
+    border: 1px solid var(--color-line);
+    color: var(--color-fg);
+  }
+  .btn-ghost::before {
+    background: var(--color-fg);
+  }
+  .btn-ghost:hover {
+    color: var(--color-ink);
+  }
+
+  .link-u {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.5s var(--ease-expo);
+  }
+  .link-u:hover {
+    background-size: 100% 1px;
+  }
+
+  .prose-pqm {
+    color: color-mix(in oklab, var(--color-fg) 82%, transparent);
+    font-size: 1.0625rem;
+    line-height: 1.8;
+  }
+  .prose-pqm h2 {
+    font-family: var(--font-display);
+    font-stretch: 80%;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1;
+    color: var(--color-fg);
+    margin: 2.5em 0 0.75em;
+  }
+  .prose-pqm h3 {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--color-fg);
+    margin: 2em 0 0.6em;
+  }
+  .prose-pqm p {
+    margin: 0 0 1.2em;
+  }
+  .prose-pqm ul,
+  .prose-pqm ol {
+    margin: 0 0 1.4em;
+    padding-left: 1.2em;
+  }
+  .prose-pqm ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .prose-pqm ul li {
+    position: relative;
+    padding-left: 1.6em;
+    margin-bottom: 0.5em;
+  }
+  .prose-pqm ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.8em;
+    width: 0.8em;
+    height: 1px;
+    background: var(--color-accent);
+  }
+  .prose-pqm ol {
+    list-style: decimal-leading-zero;
+  }
+  .prose-pqm ol li {
+    margin-bottom: 0.5em;
+    padding-left: 0.4em;
+  }
+  .prose-pqm ol li::marker {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+  .prose-pqm a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-pqm img {
+    border-radius: 0.5rem;
+    margin: 2em 0;
+  }
+  .prose-pqm strong {
+    color: var(--color-fg);
+  }
+  .prose-pqm > *:first-child {
+    margin-top: 0;
+  }
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.cursor-el {
+  visibility: hidden;
+}
+@media not ((hover: hover) and (pointer: fine)) {
+  .cursor-el {
+    display: none;
+  }
+}
+
+/* Ẩn con trỏ mặc định khi dùng con trỏ tùy biến (chỉ thiết bị có chuột) */
+@media (hover: hover) and (pointer: fine) {
+  html.has-cursor,
+  html.has-cursor a,
+  html.has-cursor button {
+    cursor: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
