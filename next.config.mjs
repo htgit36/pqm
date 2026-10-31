@@ -1,7 +1,8 @@
-import type { NextConfig } from "next";
-
+// File JS thuần (không phải .ts): máy chủ Hostinger chỉ chạy được SWC bản WebAssembly,
+// bản này không biên dịch được next.config.ts.
 // URL của website cũ (OpenCart) → URL mới, giữ thứ hạng Google (301).
-const legacyRedirects: Array<[string, string]> = [
+/** @type {Array<[string, string]>} */
+const legacyRedirects = [
   ["/dich-vu-quay-phim-su-kien-phu-quoc", "/dich-vu/chup-anh-quay-phim-su-kien"],
   ["/chup-anh-teambuilding-phu-quoc", "/dich-vu/chup-anh-teambuilding-gala-dinner"],
   ["/dich-vu-flycam-su-kien-phu-quoc", "/dich-vu/flycam-drone-fpv"],
@@ -15,16 +16,9 @@ const legacyRedirects: Array<[string, string]> = [
   ["/index.php", "/"],
 ];
 
-const nextConfig: NextConfig = {
+/** @type {import("next").NextConfig} */
+const nextConfig = {
   poweredByHeader: false,
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
   images: {
     formats: ["image/avif", "image/webp"],
     localPatterns: [{ pathname: "/images/**" }, { pathname: "/media/**" }],
