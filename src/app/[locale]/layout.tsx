@@ -7,6 +7,7 @@ import SmoothScroll from "@/components/motion/SmoothScroll";
 import Cursor from "@/components/motion/Cursor";
 import Loader from "@/components/motion/Loader";
 import Analytics from "@/components/analytics/Analytics";
+import PageTracker from "@/components/analytics/PageTracker";
 import CookieBanner from "@/components/analytics/CookieBanner";
 import { getDictionary } from "@/lib/dictionaries";
 import { href, isLocale } from "@/lib/i18n";
@@ -72,6 +73,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
       <Footer locale={locale} dict={dict} settings={settings} />
       <FloatingContact dict={dict} settings={settings} />
       <CookieBanner labels={dict.cookie} policyHref={href(locale, "privacy")} enabled={Boolean(settings.gaId || settings.metaPixelId)} />
+      <PageTracker locale={locale} />
       <Analytics gaId={settings.gaId} pixelId={settings.metaPixelId} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </>

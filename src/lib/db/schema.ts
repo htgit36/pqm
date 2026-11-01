@@ -1,6 +1,7 @@
 import {
   boolean,
   datetime,
+  index,
   int,
   json,
   mediumtext,
@@ -99,6 +100,29 @@ export const leads = mysqlTable("leads", {
   note: text(),
   createdAt: timestamp().defaultNow().notNull(),
 });
+
+export const pageViews = mysqlTable(
+  "page_views",
+  {
+    id: int().autoincrement().primaryKey(),
+    createdAt: timestamp().defaultNow().notNull(),
+    ip: varchar({ length: 64 }).notNull(),
+    sessionId: varchar({ length: 40 }),
+    path: varchar({ length: 500 }).notNull(),
+    locale: varchar({ length: 8 }).notNull().default("vi"),
+    referrer: varchar({ length: 500 }),
+    source: varchar({ length: 100 }).notNull().default("Truy cập trực tiếp"),
+    medium: varchar({ length: 16 }).notNull().default("direct"),
+    utmCampaign: varchar({ length: 191 }),
+    device: varchar({ length: 16 }).notNull().default("desktop"),
+    browser: varchar({ length: 32 }),
+    os: varchar({ length: 32 }),
+    country: varchar({ length: 64 }),
+    city: varchar({ length: 100 }),
+    userAgent: varchar({ length: 400 }),
+  },
+  (t) => [index("page_views_created_idx").on(t.createdAt), index("page_views_ip_idx").on(t.ip)],
+);
 
 export const settings = mysqlTable("settings", {
   key: varchar({ length: 100 }).primaryKey(),

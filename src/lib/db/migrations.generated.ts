@@ -16,5 +16,13 @@ export const migrations: { tag: string; statements: string[] }[] = [
     "statements": [
       "CREATE TABLE `testimonials` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`author_name` varchar(255) NOT NULL,\n\t`author_role_vi` varchar(255),\n\t`author_role_en` varchar(255),\n\t`quote_vi` text NOT NULL,\n\t`quote_en` text,\n\t`avatar` varchar(500),\n\t`published` boolean NOT NULL DEFAULT true,\n\t`sort_order` int NOT NULL DEFAULT 0,\n\tCONSTRAINT `testimonials_id` PRIMARY KEY(`id`)\n);"
     ]
+  },
+  {
+    "tag": "0002_striped_wonder_man",
+    "statements": [
+      "CREATE TABLE `page_views` (\n\t`id` int AUTO_INCREMENT NOT NULL,\n\t`created_at` timestamp NOT NULL DEFAULT (now()),\n\t`ip` varchar(64) NOT NULL,\n\t`session_id` varchar(40),\n\t`path` varchar(500) NOT NULL,\n\t`locale` varchar(8) NOT NULL DEFAULT 'vi',\n\t`referrer` varchar(500),\n\t`source` varchar(100) NOT NULL DEFAULT 'Truy cập trực tiếp',\n\t`medium` varchar(16) NOT NULL DEFAULT 'direct',\n\t`utm_campaign` varchar(191),\n\t`device` varchar(16) NOT NULL DEFAULT 'desktop',\n\t`browser` varchar(32),\n\t`os` varchar(32),\n\t`country` varchar(64),\n\t`city` varchar(100),\n\t`user_agent` varchar(400),\n\tCONSTRAINT `page_views_id` PRIMARY KEY(`id`)\n);",
+      "CREATE INDEX `page_views_created_idx` ON `page_views` (`created_at`);",
+      "CREATE INDEX `page_views_ip_idx` ON `page_views` (`ip`);"
+    ]
   }
 ];
