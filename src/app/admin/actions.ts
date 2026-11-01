@@ -1,7 +1,9 @@
 "use server";
 
 import { headers } from "next/headers";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { HERO_KEY, parseHeroItems } from "@/lib/hero-gallery";
 import { eq } from "drizzle-orm";
 import { checkCredentials, createSession, destroySession, requireAdmin } from "@/lib/auth";
 import { entities, isEntityKey, type EntityKey } from "@/lib/admin-entities";
@@ -130,6 +132,24 @@ export async function saveSettings(formData: FormData) {
     await db.insert(schema.settings).values({ key, value }).onDuplicateKeyUpdate({ set: { value } });
   }
   redirect("/admin/settings?saved=1");
+}
+
+// ——— Ảnh bìa trang chủ ———
+export async function saveHeroGallery(formData: FormData) {
+  await requireAdmin();
+  const items = parseHeroItems(String(formData.get("gallery") ?? ""));
+  if (!items?.length) redirect("/admin/hero?error=1");
+  const value = JSON.stringify(items);
+  await db.insert(schema.settings).values({ key: HERO_KEY, value }).onDuplicateKeyUpdate({ set: { value } });
+  revalidatePath("/", "layout");
+  redirect("/admin/hero?saved=1");
+}
+
+export async function resetHeroGallery() {
+  await requireAdmin();
+  await db.delete(schema.settings).where(eq(schema.settings.key, HERO_KEY));
+  revalidatePath("/", "layout");
+  redirect("/admin/hero?saved=1");
 }
 
 // ——— Thư viện file ———

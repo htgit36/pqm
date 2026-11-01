@@ -11,6 +11,7 @@ import { getClients, getServices, getTestimonials } from "@/lib/content";
 import { getFacebookAlbums } from "@/lib/facebook";
 import FbGallery from "@/components/site/FbGallery";
 import { getDictionary } from "@/lib/dictionaries";
+import { getHeroGallery } from "@/lib/hero-gallery";
 import { href, tr, type Locale } from "@/lib/i18n";
 import { getSettings } from "@/lib/settings";
 import { youtubeId } from "@/lib/utils";
@@ -23,12 +24,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   const dict = getDictionary(locale);
-  const [settings, services, clients, albums, testimonials] = await Promise.all([getSettings(), getServices(), getClients(), getFacebookAlbums(8), getTestimonials().catch(() => [])]);
+  const [settings, services, clients, albums, testimonials, heroImages] = await Promise.all([getSettings(), getServices(), getClients(), getFacebookAlbums(8), getTestimonials().catch(() => []), getHeroGallery(locale)]);
   const mainServices = services.filter((s) => s.featured).slice(0, 4);
 
   return (
     <>
-      <Hero dict={dict} image={settings.heroImage} video={settings.heroVideo || undefined} />
+      <Hero dict={dict} image={settings.heroImage} video={settings.heroVideo || undefined} images={heroImages} />
 
       {/* Giới thiệu + số liệu */}
       <section className="container-x py-28 md:py-44">

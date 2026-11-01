@@ -12,6 +12,7 @@ const items = [
   { href: "/admin/posts", label: "Tin tức" },
   { href: "/admin/clients", label: "Đối tác" },
   { href: "/admin/testimonials", label: "Lời chứng thực" },
+  { href: "/admin/hero", label: "Ảnh bìa trang chủ" },
   { href: "/admin/media", label: "Thư viện file" },
   { href: "/admin/settings", label: "Cài đặt" },
 ];

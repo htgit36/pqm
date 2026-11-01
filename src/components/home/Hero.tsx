@@ -3,8 +3,8 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Img from "@/components/site/Img";
 import type { Dictionary } from "@/lib/dictionaries";
+import { pickHeroImage, type HeroImage } from "@/lib/hero-images";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,8 +27,19 @@ function Timecode() {
   return <span ref={ref} className="tabular-nums">00:00:00:00</span>;
 }
 
-export default function Hero({ dict, image, video }: { dict: Dictionary; image: string; video?: string }) {
+export default function Hero({ dict, image, video, images }: { dict: Dictionary; image: string; video?: string; images: HeroImage[] }) {
   const root = useRef<HTMLElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const captionRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img) {
+      // Điều hướng nội bộ về trang chủ: script trong HTML không chạy lại nên chọn ảnh tại đây.
+      if (!img.getAttribute("src")) pickHeroImage(img, images);
+      if (captionRef.current) captionRef.current.textContent = img.getAttribute("data-hero") ?? "";
+    }
+  }, [images]);
 
   useEffect(() => {
     const el = root.current;
@@ -76,7 +87,16 @@ export default function Hero({ dict, image, video }: { dict: Dictionary; image: 
           {video ? (
             <video className="absolute inset-0 h-full w-full object-cover" src={video} poster={image} autoPlay muted loop playsInline preload="metadata" />
           ) : (
-            <Img src={image} alt="Phú Quốc từ trên cao" priority sizes="100vw" />
+            <>
+              {/* Không có src ở HTML gốc: script ngay bên dưới chọn ảnh ngẫu nhiên trước khi vẽ trang. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img ref={imgRef} alt="Phú Quốc Media — sự kiện và flycam tại Phú Quốc" className="absolute inset-0 h-full w-full object-cover" fetchPriority="high" decoding="async" suppressHydrationWarning />
+              <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `(${pickHeroImage.toString()})(document.currentScript.previousElementSibling,${JSON.stringify(images)})` }} />
+              <noscript>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={image} alt="Phú Quốc Media" className="absolute inset-0 h-full w-full object-cover" />
+              </noscript>
+            </>
           )}
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/20 to-ink" />
@@ -94,6 +114,7 @@ export default function Hero({ dict, image, video }: { dict: Dictionary; image: 
           <span className="h-2 w-2 animate-blink rounded-full bg-rec" /> REC <Timecode />
         </div>
         <div className="absolute right-5 top-4 text-[11px] font-medium uppercase tracking-[0.2em] text-fg/70">4K · 25FPS · F2.8</div>
+        {!video && <span ref={captionRef} className="absolute bottom-4 right-5 text-[11px] font-medium uppercase tracking-[0.2em] text-fg/60" />}
       </div>
 
       <div data-hero-title className="container-x relative mt-auto pb-[clamp(6rem,14vh,9rem)] pt-32">
