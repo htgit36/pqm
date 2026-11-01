@@ -2,7 +2,7 @@ import Link from "next/link";
 import { href, type Locale, type RouteKey } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Settings } from "@/lib/settings";
-import { phoneDisplay } from "@/lib/utils";
+import { ALBUM_URL, phoneDisplay } from "@/lib/utils";
 import { Facebook, Instagram, Tiktok, Youtube } from "./Icons";
 import BackToTop from "./BackToTop";
 import Logo from "./Logo";
@@ -42,6 +42,11 @@ export default function Footer({ locale, dict, settings }: { locale: Locale; dic
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <a href={ALBUM_URL} target="_blank" rel="noopener" className="link-u text-accent hover:text-fg">
+                    {dict.nav.album}
+                  </a>
+                </li>
               </ul>
             </div>
             <div>

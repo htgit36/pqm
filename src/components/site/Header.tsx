@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { href, switchLocalePath, type Locale, type RouteKey } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
-import { cn, phoneDisplay } from "@/lib/utils";
+import { ALBUM_URL, cn, phoneDisplay } from "@/lib/utils";
 import { ArrowUpRight } from "./Icons";
 import Logo from "./Logo";
 
@@ -110,6 +110,9 @@ export default function Header({ locale, dict, phone, email }: { locale: Locale;
                 {dict.nav[key as keyof Dictionary["nav"]]}
               </Link>
             ))}
+            <a href={ALBUM_URL} target="_blank" rel="noopener" className="link-u inline-flex items-center gap-1 py-2 text-sm font-medium tracking-wide text-accent transition-colors hover:text-fg">
+              {dict.nav.album} <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
           </nav>
 
           <div className="relative z-10 flex items-center gap-2 md:gap-4">
@@ -156,6 +159,19 @@ export default function Header({ locale, dict, phone, email }: { locale: Locale;
               </Link>
             </div>
           ))}
+          <div className="overflow-hidden">
+            <a
+              data-menu-item
+              href={ALBUM_URL}
+              target="_blank"
+              rel="noopener"
+              tabIndex={open ? 0 : -1}
+              className="display flex items-baseline gap-4 py-1 text-[clamp(2.25rem,9vw,4rem)] text-accent"
+            >
+              <span className="font-sans text-xs font-medium tracking-[0.2em] text-muted">08</span>
+              {dict.nav.album}
+            </a>
+          </div>
         </nav>
         <div className="container-x grid gap-4 border-t border-line py-8 text-sm text-muted sm:grid-cols-2">
           <a data-menu-fade href={`tel:${phone}`} tabIndex={open ? 0 : -1} className="flex items-center justify-between text-fg">

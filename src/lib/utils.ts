@@ -50,3 +50,4 @@ export function phoneDisplay(phone: string) {
 }
 
 export const siteUrl = (process.env.SITE_URL ?? "https://phuquocmedia.vn").replace(/\/$/, "");
+export const ALBUM_URL = "https://album.phuquocmedia.vn/";
