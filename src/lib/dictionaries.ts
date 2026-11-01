@@ -4,6 +4,7 @@ const vi = {
   nav: {
     home: "Trang chủ",
     services: "Dịch vụ",
+    work: "Dự án",
     gallery: "Thư viện",
     about: "Giới thiệu",
     news: "Tin tức",
@@ -23,6 +24,9 @@ const vi = {
     video: "Video",
     photo: "Hình ảnh",
     all: "Tất cả",
+    relatedWork: "Dự án liên quan",
+    nextProject: "Dự án tiếp theo",
+    viewMaterials: "Xem toàn bộ tư liệu",
     client: "Khách hàng",
     category: "Hạng mục",
     year: "Năm",
@@ -91,6 +95,8 @@ const vi = {
     testimonialsTitle: "Lời chứng thực",
   },
   pages: {
+    workTitle: "Dự án tiêu biểu",
+    workLead: "Một số sự kiện, hội nghị và gala dinner chúng tôi đã thực hiện tại Phú Quốc.",
     servicesTitle: "Dịch vụ",
     servicesLead: "Từ hội nghị quốc tế đến khoảnh khắc gia đình bên hoàng hôn — một ê-kíp, trọn gói giải pháp hình ảnh tại Phú Quốc.",
     galleryTitle: "Thư viện",
@@ -174,6 +180,7 @@ const en: Dictionary = {
   nav: {
     home: "Home",
     services: "Services",
+    work: "Projects",
     gallery: "Gallery",
     about: "About",
     news: "Journal",
@@ -193,6 +200,9 @@ const en: Dictionary = {
     video: "Video",
     photo: "Photo",
     all: "All",
+    relatedWork: "Related projects",
+    nextProject: "Next project",
+    viewMaterials: "View full materials",
     client: "Client",
     category: "Category",
     year: "Year",
@@ -260,6 +270,8 @@ const en: Dictionary = {
     testimonialsTitle: "Testimonials",
   },
   pages: {
+    workTitle: "Featured projects",
+    workLead: "A selection of events, conferences and gala dinners we have produced in Phu Quoc.",
     servicesTitle: "Services",
     servicesLead: "From international conferences to family moments at sunset — one crew, a complete visual solution in Phu Quoc.",
     galleryTitle: "Gallery",

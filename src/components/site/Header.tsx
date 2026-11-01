@@ -10,7 +10,7 @@ import { cn, phoneDisplay } from "@/lib/utils";
 import { ArrowUpRight } from "./Icons";
 import Logo from "./Logo";
 
-const navKeys: RouteKey[] = ["services", "gallery", "about", "news", "contact"];
+const navKeys: RouteKey[] = ["services", "work", "gallery", "about", "news", "contact"];
 
 export default function Header({ locale, dict, phone, email }: { locale: Locale; dict: Dictionary; phone: string; email: string }) {
   const pathname = usePathname();

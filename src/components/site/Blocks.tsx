@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { LineReveal, Reveal } from "@/components/motion/Reveal";
+import Img from "./Img";
 import { ArrowUpRight } from "./Icons";
-import { href, type Locale } from "@/lib/i18n";
+import { categoryLabel, href, tr, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries";
+import type { Project } from "@/lib/db/schema";
 
 export function Eyebrow({ children, index }: { children: React.ReactNode; index?: string }) {
   return (
@@ -33,6 +35,26 @@ export function PageHeader({ eyebrow, title, lead, children }: { eyebrow: string
         </div>
       )}
     </section>
+  );
+}
+
+export function ProjectCard({ project, locale, dict, index, sizes = "(min-width:768px) 50vw, 100vw", tall }: { project: Project; locale: Locale; dict: Dictionary; index?: number; sizes?: string; tall?: boolean }) {
+  return (
+    <Link href={href(locale, "work", project.slug)} data-cursor={dict.common.view} className="group block">
+      <div className={`relative overflow-hidden rounded-md bg-raise ${tall ? "aspect-[4/5]" : "aspect-[3/2]"}`}>
+        <div className="absolute inset-0 transition-transform duration-[1.4s] ease-[var(--ease-expo)] group-hover:scale-[1.06]">
+          <Img src={project.coverImage} alt={tr(project, "title", locale)} sizes={sizes} />
+        </div>
+        {index !== undefined && <span className="absolute right-4 top-4 text-sm tabular-nums text-fg/80">{String(index + 1).padStart(2, "0")}</span>}
+      </div>
+      <div className="mt-4 flex items-start justify-between gap-4">
+        <div>
+          <h3 className="text-lg font-semibold leading-snug transition-colors group-hover:text-accent md:text-xl">{tr(project, "title", locale)}</h3>
+          <p className="mt-1 text-sm text-muted">{[project.client, categoryLabel(project.category, locale)].filter(Boolean).join(" · ")}</p>
+        </div>
+        <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-muted transition-all duration-500 group-hover:rotate-45 group-hover:text-accent" />
+      </div>
+    </Link>
   );
 }
 

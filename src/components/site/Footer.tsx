@@ -15,7 +15,7 @@ export default function Footer({ locale, dict, settings }: { locale: Locale; dic
     { url: settings.instagram, label: "Instagram", Icon: Instagram },
     { url: settings.tiktok, label: "TikTok", Icon: Tiktok },
   ].filter((s) => s.url);
-  const links: RouteKey[] = ["services", "gallery", "about", "news", "contact"];
+  const links: RouteKey[] = ["services", "work", "gallery", "about", "news", "contact"];
 
   return (
     <footer className="theme-dark relative overflow-hidden bg-ink pt-20 md:pt-28">

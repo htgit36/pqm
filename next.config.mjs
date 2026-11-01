@@ -14,11 +14,6 @@ const legacyRedirects = [
   ["/album/:path*", "/thu-vien"],
   ["/ve-chung-toi", "/gioi-thieu"],
   ["/index.php", "/"],
-  // Phần Dự án đã gỡ → chuyển sang Thư viện ảnh
-  ["/du-an", "/thu-vien"],
-  ["/du-an/:path*", "/thu-vien"],
-  ["/en/work", "/en/gallery"],
-  ["/en/work/:path*", "/en/gallery"],
 ];
 
 /** @type {import("next").NextConfig} */
@@ -26,7 +21,7 @@ const nextConfig = {
   poweredByHeader: false,
   images: {
     formats: ["image/avif", "image/webp"],
-    localPatterns: [{ pathname: "/images/**" }, { pathname: "/media/**" }],
+    localPatterns: [{ pathname: "/images/**" }, { pathname: "/projects/**" }, { pathname: "/media/**" }],
     remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com" }],
   },
   async redirects() {

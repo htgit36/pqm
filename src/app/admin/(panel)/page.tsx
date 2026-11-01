@@ -7,7 +7,8 @@ import { leadStatus } from "./leads/status";
 export default async function Dashboard() {
   const count = async (t: typeof schema.projects | typeof schema.services | typeof schema.posts | typeof schema.leads) =>
     Number((await db.select({ n: sql<number>`count(*)` }).from(t))[0].n);
-  const [services, posts, leads, newLeads, recent] = await Promise.all([
+  const [projects, services, posts, leads, newLeads, recent] = await Promise.all([
+    count(schema.projects),
     count(schema.services),
     count(schema.posts),
     count(schema.leads),
@@ -18,6 +19,7 @@ export default async function Dashboard() {
   const cards = [
     { label: "Yêu cầu mới", value: Number(newLeads[0].n), href: "/admin/leads", accent: true },
     { label: "Tổng yêu cầu", value: leads, href: "/admin/leads" },
+    { label: "Dự án", value: projects, href: "/admin/projects" },
     { label: "Dịch vụ", value: services, href: "/admin/services" },
     { label: "Bài viết", value: posts, href: "/admin/posts" },
   ];
@@ -25,7 +27,7 @@ export default async function Dashboard() {
   return (
     <>
       <PageTitle title="Tổng quan" />
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
         {cards.map((c) => (
           <Link key={c.label} href={c.href} className="rounded-lg border border-line bg-surface p-5 transition-colors hover:border-accent">
             <p className="text-sm text-muted">{c.label}</p>

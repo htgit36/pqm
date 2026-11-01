@@ -63,3 +63,23 @@ export function Lightbox({ images, start, title, closeLabel, onClose, caption, l
     </div>
   );
 }
+
+/** Lưới ảnh của một dự án; bấm vào để mở trình xem toàn màn hình. */
+export default function Gallery({ images, title, closeLabel }: { images: string[]; title: string; closeLabel: string }) {
+  const [index, setIndex] = useState<number | null>(null);
+
+  return (
+    <>
+      <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 [&>*]:mb-4">
+        {images.map((src, i) => (
+          <button key={src + i} type="button" onClick={() => setIndex(i)} data-cursor="Zoom" className="group relative block w-full overflow-hidden rounded-md bg-raise" aria-label={`${title} ${i + 1}`}>
+            <div className={`relative ${i % 4 === 1 ? "aspect-[3/4]" : "aspect-[3/2]"}`}>
+              <Img src={src} alt={`${title} ${i + 1}`} sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" className="transition-transform duration-700 group-hover:scale-105" />
+            </div>
+          </button>
+        ))}
+      </div>
+      {index !== null && <Lightbox images={images} start={index} title={title} closeLabel={closeLabel} onClose={() => setIndex(null)} />}
+    </>
+  );
+}

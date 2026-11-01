@@ -1,8 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
-import { eq, sql } from "drizzle-orm";
+import { eq, inArray, sql } from "drizzle-orm";
 import { db, pool, schema } from "./index";
 import { migrations } from "./migrations.generated";
+import { featuredProjects } from "./projects-data";
 import { seedClients, seedPosts, seedProjects, seedServices } from "./seed-data";
 
 const dataPatches = [
@@ -65,10 +66,24 @@ export async function runMigrations() {
   const [{ count }] = await db.select({ count: sql<number>`count(*)` }).from(schema.services);
   if (Number(count) === 0) {
     await db.insert(schema.services).values(seedServices);
-    await db.insert(schema.projects).values(seedProjects);
     await db.insert(schema.clients).values(seedClients);
     await db.insert(schema.posts).values(seedPosts);
     console.log("[db] Đã nạp dữ liệu mẫu.");
   }
+  await importFeaturedProjects(applied);
   await applySnapshot();
+}
+
+// Nạp các dự án tiêu biểu một lần. Dự án mẫu cũ được ẩn (không xóa) và các dự án
+// đã có cùng slug được giữ nguyên, nên nội dung chỉnh trong Admin không bị ghi đè.
+async function importFeaturedProjects(applied: Set<string>) {
+  const tag = "data_projects_featured_v1";
+  if (applied.has(tag)) return;
+  const oldSlugs = seedProjects.map((p) => p.slug);
+  if (oldSlugs.length) await db.update(schema.projects).set({ published: false }).where(inArray(schema.projects.slug, oldSlugs));
+  const existing = new Set((await db.select({ slug: schema.projects.slug }).from(schema.projects)).map((r) => r.slug));
+  const fresh = featuredProjects.filter((p) => !existing.has(p.slug));
+  if (fresh.length) await db.insert(schema.projects).values(fresh.map((p) => ({ ...p, kind: "photo" })));
+  await pool.query("INSERT INTO `__app_migrations` (`tag`) VALUES (?)", [tag]);
+  console.log(`[db] Đã nạp ${fresh.length} dự án tiêu biểu.`);
 }
